@@ -126,12 +126,12 @@ build_domino <- function(dom, max_tf_per_clust = 5, min_tf_pval = 0.01, max_rec_
         inc_ligs <- unlist(inc_ligs_list)
       }
       lig_genes <- intersect(inc_ligs, rownames(dom@z_scores))
-      if (length(lig_genes) %in% c(0, 1)) {
+      if (length(lig_genes) == 0) {
         lig_genes <- numeric(0)
       }
       cl_sig_mat <- matrix(0, ncol = length(levels(dom@clusters)), nrow = length(lig_genes))
       colnames(cl_sig_mat) <- colnames(signaling)
-      rownames(cl_sig_mat) <- lig_genes
+      if (!identical(lig_genes, numeric(0))) {rownames(cl_sig_mat) <- lig_genes}
       for (c2 in levels(dom@clusters)) {
         n_cell <- length(which(dom@clusters == c2))
         if (n_cell > 1) {
@@ -151,16 +151,17 @@ build_domino <- function(dom, max_tf_per_clust = 5, min_tf_pval = 0.01, max_rec_
         # if complexes were used
         cl_sig_list <- lapply(seq_along(inc_ligs_list), function(x) {
           if (all(inc_ligs_list[[x]] %in% lig_genes)) {
-          # Some of the ligands in the list object may not be present in the data
-          if (length(inc_ligs_list[[x]]) > 1) {
-            return(colMeans(cl_sig_mat[inc_ligs_list[[x]], ]))
-          } else {
-            return(cl_sig_mat[inc_ligs_list[[x]], ])
-          }
+            # Some of the ligands in the list object may not be present in the data
+            if (length(inc_ligs_list[[x]]) > 1) {
+              return(colMeans(cl_sig_mat[inc_ligs_list[[x]], ]))
+            } else {
+              return(cl_sig_mat[inc_ligs_list[[x]], ])
+            }
           }
         })
         names(cl_sig_list) <- names(inc_ligs_list)
-        if (length(cl_sig_list) > 1) {
+        # Check if at least one complex is signaling (and that cl_sig_list isn't all NULL)
+        if (length(cl_sig_list) > 1 & !all(sapply(cl_sig_list, is.null))) {
           cl_sig_mat <- do.call(rbind, cl_sig_list)
         }
       }

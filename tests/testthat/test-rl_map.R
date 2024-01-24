@@ -203,24 +203,22 @@ test_that("ortholog_mapping", {
 # rl_map_ortholog_conversion
 test_that("rl_map_ortholog_conversion: ", {
   test_rl_map <- data.frame(
-    gene_A = c("HUMA1", "HUMB1", "HUMC1", "HUMD1", "HUMA1,HUMA2", "HUMB1,HUMA2", "HUMC1,HUMA2", "HUMD1,HUMA2"),
-    type_A = rep("R", 8),
-    name_A = c("HUMA1", "HUMB1", "HUMC1", "HUMD1", "complexAA", "complexBA", "complexCA", "complexDA"),
-    gene_B = rep("HUME", 8),
-    type_B = rep("L", 8),
-    name_B = rep("HUME", 8),
-    int_pair = c("HUMA1 & HUME", "HUMB1 & HUME", "HUMC1 & HUME", "HUMD1 & HUME", "complexAA & HUME", "complexBA & HUME", "complexCA & HUME", "complexDA & HUME"),
-    annotation = rep("test", 8),
-    source = c("simple int, one-one ortho", "simple int, one-many ortho", "simple int, one-none ortho", "simple int, many-one ortho", "complex int, one-one ortho", "complex int, one-many ortho", "complex int, one-none ortho", "complex int, many-one ortho"),
-    database_name = rep("test", 8)
+    gene_A = c("HUMA1", "HUMB1", "HUMC1", "HUMD1", "HUMD2", "HUMA1,HUMA2", "HUMB1,HUMA2", "HUMC1,HUMA2", "HUMD1,HUMA2", "HUMD2,HUMA2"),
+    type_A = rep("R", 10),
+    name_A = c("HUMA1", "HUMB1", "HUMC1", "HUMD1", "HUMD2", "complexAA", "complexBA", "complexCA", "complexD1A", "complexD2A"),
+    gene_B = rep("HUME", 10),
+    type_B = rep("L", 10),
+    name_B = rep("HUME", 10),
+    int_pair = c("HUMA1 & HUME", "HUMB1 & HUME", "HUMC1 & HUME", "HUMD1 & HUME", "HUMD2 & HUME", "complexAA & HUME", "complexBA & HUME", "complexCA & HUME", "complexD1A & HUME", "complexD2A & HUME"),
+    annotation = rep("test", 10),
+    source = c("simple int, one-one ortho", "simple int, one-many ortho", "simple int, one-none ortho", "simple int, many-one ortho", "simple int, many-one ortho", "complex int, one-one ortho", "complex int, one-many ortho", "complex int, one-none ortho", "complex int, many-one ortho", "complex int, many-one ortho"),
+    database_name = rep("test", 10)
   )
   test_from <- c("HUMA1", "HUMA2", "HUMB1", "HUMB1", "HUMC1", "HUMD1", "HUMD2", "HUME")
   test_to <- c("Musa1", "Musa2", "Musb1", "Musb2", "", "Musd1", "Musd1", "Muse")
   
   ortho_rl_map <- rl_map_ortholog_conversion(rl_map = test_rl_map, to = test_to, from = test_from, use_complexes = TRUE)
-  
-  test_rl_map[test_rl_map$name_A == "HUMA1",]
-  
+  ortho_rl_map_noComplex <- rl_map_ortholog_conversion(rl_map = test_rl_map, to = test_to, from = test_from, use_complexes = FALSE)
   
   # simple int, one-one ortho
   expect_equal(
@@ -239,7 +237,6 @@ test_that("rl_map_ortholog_conversion: ", {
     )
   )
   # simple int, one-many ortho
-  
   # expectation is to include an interaction for each ortholog
   expect_equal(
     ortho_rl_map[ortho_rl_map$name_A == "HUMB1",],
@@ -262,14 +259,79 @@ test_that("rl_map_ortholog_conversion: ", {
     c(0, 10)
   )
   # simple int, many-one ortho
+  expect_equal(
+    ortho_rl_map[ortho_rl_map$name_A %in% c("HUMD1", "HUMD2"),],
+    c(
+      gene_A = c("Musd1", "Musd1"),
+      type_A = c("R", "R"),
+      name_A = c("HUMD1", "HUMD2"),
+      gene_B = c("Muse", "Muse"),
+      type_B = c("L", "L"),
+      name_B = c("HUME", "HUME"),
+      int_pair = c("HUMD1 & HUME", "HUMD2 & HUME"),
+      annotation = c("test", "test"),
+      source = c("simple int, many-one ortho", "simple int, many-one ortho"),
+      database_name = c("test_conversion_", "test_conversion_")
+    )
+  )
   # complex int, one-one ortho
+  expect_equal(
+    ortho_rl_map[ortho_rl_map$name_A == "complexAA",],
+    c(
+      gene_A = "Musa1,Musa2",
+      type_A = "R",
+      name_A = "complexAA",
+      gene_B = "Muse",
+      type_B = "L",
+      name_B = "HUME",
+      int_pair = "complexAA & HUME",
+      annotation = "test",
+      source = "complex int, one-one ortho",
+      database_name = "test_conversion_"
+    )
+  )
   # complex int, one-many ortho
+  expect_equal(
+    ortho_rl_map[ortho_rl_map$name_A == "complexBA",],
+    c(
+      gene_A = c("Musb1,Musa2", "Musb2,Musa2"),
+      type_A = c("R", "R"),
+      name_A = c("complexBA", "complexBA"),
+      gene_B = c("Muse", "Muse"),
+      type_B = c("L", "L"),
+      name_B = c("HUME", "HUME"),
+      int_pair = c("complexBA & HUME", "complexBA & HUME"),
+      annotation = c("test", "test"),
+      source = c("complex int, one-many ortho", "complex int, one-many ortho"),
+      database_name = c("test_conversion_", "test_conversion_")
+    )
+  )
   # complex int, one-none ortho
   expect_equal(
     dim(ortho_rl_map[ortho_rl_map$name_A == "complexCA",]),
     c(0, 10)
   )
   # complex int, many-one ortho
+  expect_equal(
+    ortho_rl_map[ortho_rl_map$name_A %in% c("complexD1A", "complexD2A"),],
+    c(
+      gene_A = c("Musd1,Musa2", "Musd1,Musa2"),
+      type_A = c("R", "R"),
+      name_A = c("complexD1A", "complexD2A"),
+      gene_B = c("Muse", "Muse"),
+      type_B = c("L", "L"),
+      name_B = c("HUME", "HUME"),
+      int_pair = c("complexD1A & HUME", "complexD2A & HUME"),
+      annotation = c("test", "test"),
+      source = c("complex int, many-one ortho", "complex int, many-one ortho"),
+      database_name = c("test_conversion_", "test_conversion_")
+    )
+  )
   
+  # running without complexes returns only simple interactions
+  expect_equal(
+    dim(ortho_rl_map_noComplex),
+    c(5, 10)
+  )
 })
 

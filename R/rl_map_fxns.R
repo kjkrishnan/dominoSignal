@@ -23,7 +23,7 @@
 #' read_cellphoneDB_file(filename = test_file, set_unannotated = TRUE)
 #' 
 
-read_cellphoneDB_file <- function(filename, set_unannotated = FALSE) {
+read_cellphonedb_file <- function(filename, set_unannotated = FALSE) {
   my_file <- read.csv(filename, stringsAsFactors = FALSE)
   if (set_unannotated) {
     # replace empty data frame cells with "False"
@@ -218,6 +218,7 @@ create_rl_map_cellphonedb <- function(
 #' map_OneNone <- ortholog_mapping(gene = "HUMC1", from = test_from, to = test_to)
 #' 
 ortholog_mapping <- function(gene, from, to) {
+  if(length(from) != length(to)) stop("'from' and 'to' vectors are of differing lengths. Ensure that all original genes in 'from' have an orthologous gene in 'to' at the same index of each vector.")
   ortho_ls <- lapply(gene, function(g) {
     if(g %in% from) return(to[from == g])
     else return(NA)

@@ -1,5 +1,5 @@
-# read_cellphoneDB_file
-test_that("read_cellphoneDB_file: replace empty cells with FALSE", {
+# read_cellphonedb_file
+test_that("read_cellphonedb_file: replace empty cells with FALSE", {
   tdir <- tempdir()
   df <- data.frame(
     "uniprot" = c("A", "B", "C"), 
@@ -23,7 +23,7 @@ test_that("read_cellphoneDB_file: replace empty cells with FALSE", {
   )
   test_file <- paste0(tdir, "/test_prot.csv")
   write.csv(df, file = test_file, row.names = FALSE)
-  df2 <- read_cellphoneDB_file(filename = test_file, set_unannotated = TRUE)
+  df2 <- read_cellphonedb_file(filename = test_file, set_unannotated = TRUE)
   expect_equal(df2, df_check)
 })
 
@@ -122,8 +122,8 @@ test_that("parse_interaction: format simple or complpex partners as list", {
   )
 })
 
-# create_rl_map_cellphoneDB
-test_that("create_rl_map_cellPhoneDB: using interactions with and without complexes", {
+# create_rl_map_cellphonedb
+test_that("create_rl_map_cellphonedb: using interactions with and without complexes", {
   test_interactions <- data.frame(
     "partner_a" = c("simpleA", "simpleA"),
     "partner_b" = c("complexB", "simpleC"),
@@ -152,11 +152,11 @@ test_that("create_rl_map_cellPhoneDB: using interactions with and without comple
     "receptor" = c(FALSE, TRUE, TRUE, TRUE)
   )
   
-  rl_map_complexes <- create_rl_map_cellphoneDB(
+  rl_map_complexes <- create_rl_map_cellphonedb(
     genes = test_genes, proteins = test_proteins, interactions = test_interactions,
     complexes = test_complexes
   )
-  rl_map_NOcomplexes <- create_rl_map_cellphoneDB(
+  rl_map_NOcomplexes <- create_rl_map_cellphonedb(
     genes = test_genes, proteins = test_proteins, interactions = test_interactions,
     complexes = NULL
   )
@@ -195,6 +195,9 @@ test_that("ortholog_mapping", {
   # trying to find an ortholog for a gene not included in 'from'
   map_missing <- ortholog_mapping(gene = "HUME", from = test_from, to = test_to)
   expect_equal(map_missing, list(c(NA)))
+  
+  # return error when 'from' and 'to' are unequal lengths
+  expect_error(ortholog_mapping(gene = "HUMA1", from = test_from[1:2], to = test_to[1:3]))
 })
 
 # rl_map_ortholog_conversion

@@ -94,17 +94,17 @@ test_that("parse_interaction: format simple or complpex partners as list", {
     "receptor" = c(FALSE, TRUE, TRUE, TRUE)
   )
   lig_int <- parse_interaction(
-    int = test_int, partner = "A",
+    int = test_intAB, partner = "A",
     genes = test_genes, proteins = test_proteins,
     complexes = test_complexes
   )
   rec_int <- parse_interaction(
-    int = test_int, partner = "B",
+    int = test_intAB, partner = "B",
     genes = test_genes, proteins = test_proteins,
     complexes = test_complexes
   )
   rec_int_noComplex <- parse_interaction(
-    int = test_int, partner = "B",
+    int = test_intAB, partner = "B",
     genes = test_genes, proteins = test_proteins,
     complexes = NULL
   )

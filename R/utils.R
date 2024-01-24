@@ -258,3 +258,39 @@ cache <- function(path = tools::R_user_dir(package = "domino2")) {
 
   bfc
 }
+
+#' Convert python True/False syntax to TRUE/FALSE
+#' 
+#' @param x character vector. If it consists of only "True" and "False" strings, the vector is converted to an R logical vector
+#' @return logical vector
+#' @export
+#' @examples
+#' x <- c("True", "True", "False", "True")
+#' TF_syntax_to_R(x = x)
+#' # [1]  TRUE  TRUE FALSE  TRUE
+#' 
+
+TF_syntax_to_R <- function(x) {
+  if (identical(unique(x), c("True", "False")) | identical(unique(x), c("False","True"))) {
+    y <- ifelse(x == "True", TRUE, FALSE)
+  } else {
+    y <- x
+  }
+  return(y)
+}
+
+#' Check for CellPhoneDB file path
+#' 
+#' checks if an argument is a file path to a CellPhoneDB database file.
+#' 
+#' @param x character. If argument is not a character, x is returned.
+#' @return data.frame or value in x if x is not a character.
+#' 
+check_filepath <- function(x, ...) {
+  if(is.character(x)) {
+    y <- read_cellphoneDB_file(x, ...)
+  } else {
+    y <- x
+  }
+  return(y)
+}

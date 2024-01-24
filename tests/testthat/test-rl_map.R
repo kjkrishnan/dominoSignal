@@ -1,4 +1,3 @@
-
 # read_cellphoneDB_file
 test_that("read_cellphoneDB_file: replace empty cells with FALSE", {
   tdir <- tempdir()
@@ -198,10 +197,8 @@ test_that("ortholog_mapping", {
   expect_equal(map_missing, list(c(NA)))
 })
 
-
-
 # rl_map_ortholog_conversion
-test_that("rl_map_ortholog_conversion: ", {
+test_that("rl_map_ortholog_conversion: cases for simple interactions, complex interactions, and running without complexes", {
   test_rl_map <- data.frame(
     gene_A = c("HUMA1", "HUMB1", "HUMC1", "HUMD1", "HUMD2", "HUMA1,HUMA2", "HUMB1,HUMA2", "HUMC1,HUMA2", "HUMD1,HUMA2", "HUMD2,HUMA2"),
     type_A = rep("R", 10),

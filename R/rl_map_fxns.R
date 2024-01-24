@@ -143,7 +143,7 @@ parse_interaction <- function(int, genes, proteins, partner = c("A", "B"), compl
 #'  complexes = domino2:::complexes_tiny)
 #' 
 
-create_rl_map_cellphoneDB <- function(
+create_rl_map_cellphonedb <- function(
     genes, proteins, interactions, 
     complexes = NULL, 
     database_name = "CellPhoneDB") {

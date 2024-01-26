@@ -46,7 +46,7 @@ test_that("check_filepath: read file and ignore non character vectors", {
   )
   df_check <- data.frame(
     "uniprot" = c("A", "B", "C"), 
-    "transmembrane" = c("TRUE", "FALSE", "FALSE")
+    "transmembrane" = c(TRUE, FALSE, FALSE)
   )
   test_file <- paste0(tdir, "/test_prot.csv")
   write.csv(df, file = test_file, row.names = FALSE)

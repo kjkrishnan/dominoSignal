@@ -273,6 +273,7 @@ TF_syntax_to_R <- function(x) {
 #' checks if an argument is a file path to a CellPhoneDB database file.
 #' 
 #' @param x character. If argument is not a character, x is returned.
+#' @param ... additional arguments passed to read_cellphonedb_file
 #' @return data.frame or value in x if x is not a character.
 #' 
 check_filepath <- function(x, ...) {

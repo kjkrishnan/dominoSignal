@@ -106,6 +106,15 @@ rl_map_tiny <- domino2::create_rl_map_cellphonedb(
   interactions = interactions_tiny,
   complexes = complexes_tiny
 )
+# reorder columns to match new rl_map formatting
+colnames(rl_map_tiny)[colnames(rl_map_tiny) == "uniprot_A"] <- "protein_A"
+colnames(rl_map_tiny)[colnames(rl_map_tiny) == "uniprot_B"] <- "protein_B"
+colnames(rl_map_tiny)[colnames(rl_map_tiny) == "annotation_strategy"] <- "annotation"
+rl_map_tiny <- rl_map_tiny[,c(
+  "gene_A", "protein_A", "type_A", "name_A",
+  "gene_B", "protein_B", "type_B", "name_B",
+  "int_pair", "annotation", "source", "database_name"
+)]
 
 # Get regulon list
 regulon_list_tiny <- domino2::create_regulon_list_scenic(

@@ -49,10 +49,33 @@ read_cellphonedb_file <- function(filename, set_unannotated = FALSE) {
 #' @return list
 #' @export
 #' @examples 
-#' test_intAB <- c("partner_a" = "simpleA", "partner_b" = "complexB", "protein_name_a" = "PROT_A", "protein_name_b" = "", "annotation_strategy" = "test", "source" = "test")
-#' test_genes <- data.frame("gene_name" = c("GENEA", "GENEB1", "GENEB2", "GENEC"),"uniprot" = c("simpleA", "complexB1", "complexB2", "simpleC"),"hgnc_symbol" = c("GA", "GB1", "GB2", "GC"),"ensembl" = c("ENSGA", "ENSGB1", "ENSGB2", "ENSGC"))
-#' test_complexes <- data.frame("complex_name" = "complexB","uniprot_1" = "complexB1","uniprot_2" = "complexB2","uniprot_3" = "","uniprot_4" = "","receptor" = TRUE)
-#' test_proteins <- data.frame("uniprot" = c("simpleA", "complexB1", "complexB2", "simpleC"),"protein_name" = c("PROT_A", "PROT_B1", "PROT_B2", "PROT_C"),"receptor" = c(FALSE, TRUE, TRUE, TRUE))
+#' test_intAB <- c(
+#'   "partner_a" = "simpleA", 
+#'   "partner_b" = "complexB", 
+#'   "protein_name_a" = "PROT_A", 
+#'   "protein_name_b" = "", 
+#'   "annotation_strategy" = "test",
+#'   "source" = "test"
+#'  )
+#' test_genes <- data.frame(
+#'   "gene_name" = c("GENEA", "GENEB1", "GENEB2", "GENEC"),
+#'   "uniprot" = c("simpleA", "complexB1", "complexB2", "simpleC"),
+#'   "hgnc_symbol" = c("GA", "GB1", "GB2", "GC"),
+#'   "ensembl" = c("ENSGA", "ENSGB1", "ENSGB2", "ENSGC")
+#'  )
+#' test_complexes <- data.frame(
+#'   "complex_name" = "complexB",
+#'   "uniprot_1" = "complexB1",
+#'   "uniprot_2" = "complexB2",
+#'   "uniprot_3" = "",
+#'   "uniprot_4" = "",
+#'   "receptor" = TRUE
+#'  )
+#' test_proteins <- data.frame(
+#'   "uniprot" = c("simpleA", "complexB1", "complexB2", "simpleC"),
+#'   "protein_name" = c("PROT_A", "PROT_B1", "PROT_B2", "PROT_C"),
+#'   "receptor" = c(FALSE, TRUE, TRUE, TRUE)
+#'  )
 #' parse_interaction(
 #'   int = test_intAB, partner = "A",
 #'   genes = test_genes, proteins = test_proteins,
@@ -267,22 +290,41 @@ ortholog_mapping <- function(gene, from, to) {
 #' @return data.frame
 #' @examples
 #' test_rl_map <- data.frame(
-#' gene_A = c("HUMA1", "HUMB1", "HUMC1", "HUMD1", "HUMD2", "HUMA1,HUMA2", "HUMB1,HUMA2", "HUMC1,HUMA2", "HUMD1,HUMA2", "HUMD2,HUMA2"),
+#' gene_A = c(
+#'   "HUMA1", "HUMB1", "HUMC1", "HUMD1", "HUMD2", 
+#'   "HUMA1,HUMA2", "HUMB1,HUMA2", "HUMC1,HUMA2", "HUMD1,HUMA2", "HUMD2,HUMA2"
+#'  ),
 #' type_A = rep("R", 10),
-#' name_A = c("HUMA1", "HUMB1", "HUMC1", "HUMD1", "HUMD2", "complexAA", "complexBA", "complexCA", "complexD1A", "complexD2A"),
+#' name_A = c(
+#'   "HUMA1", "HUMB1", "HUMC1", "HUMD1", "HUMD2", 
+#'   "complexAA", "complexBA", "complexCA", "complexD1A", "complexD2A"
+#'  ),
 #' gene_B = rep("HUME", 10),
 #' type_B = rep("L", 10),
 #' name_B = rep("HUME", 10),
-#' int_pair = c("HUMA1 & HUME", "HUMB1 & HUME", "HUMC1 & HUME", "HUMD1 & HUME", "HUMD2 & HUME", "complexAA & HUME", "complexBA & HUME", "complexCA & HUME", "complexD1A & HUME", "complexD2A & HUME"),
+#' int_pair = c(
+#'   "HUMA1 & HUME", "HUMB1 & HUME", "HUMC1 & HUME", "HUMD1 & HUME", "HUMD2 & HUME", 
+#'   "complexAA & HUME", "complexBA & HUME", "complexCA & HUME", "complexD1A & HUME", 
+#'   "complexD2A & HUME"
+#'  ),
 #' annotation = rep("test", 10),
-#' source = c("simple int, one-one ortho", "simple int, one-many ortho", "simple int, one-none ortho", "simple int, many-one ortho", "simple int, many-one ortho", "complex int, one-one ortho", "complex int, one-many ortho", "complex int, one-none ortho", "complex int, many-one ortho", "complex int, many-one ortho"),
+#' source = c(
+#'   "simple int, one-one ortho", "simple int, one-many ortho", "simple int, one-none ortho",
+#'   "simple int, many-one ortho", "simple int, many-one ortho", "complex int, one-one ortho",
+#'   "complex int, one-many ortho", "complex int, one-none ortho", "complex int, many-one ortho",
+#'   "complex int, many-one ortho"
+#'  ),
 #' database_name = rep("test", 10)
 #' )
 #' test_from <- c("HUMA1", "HUMA2", "HUMB1", "HUMB1", "HUMC1", "HUMD1", "HUMD2", "HUME")
 #' test_to <- c("Musa1", "Musa2", "Musb1", "Musb2", "", "Musd1", "Musd1", "Muse")
 #' 
-#' ortho_rl_map <- rl_map_ortholog_conversion(rl_map = test_rl_map, to = test_to, from = test_from, use_complexes = TRUE)
-#' ortho_rl_map_noComplex <- rl_map_ortholog_conversion(rl_map = test_rl_map, to = test_to, from = test_from, use_complexes = FALSE)
+#' ortho_rl_map <- rl_map_ortholog_conversion(
+#'   rl_map = test_rl_map, to = test_to, from = test_from, use_complexes = TRUE
+#'  )
+#' ortho_rl_map_noComplex <- rl_map_ortholog_conversion(
+#'   rl_map = test_rl_map, to = test_to, from = test_from, use_complexes = FALSE
+#'  )
 #' 
 rl_map_ortholog_conversion <- function(rl_map, from, to, use_complexes = FALSE, conversion_name = NULL) {
   ortho_map_ls <- list()

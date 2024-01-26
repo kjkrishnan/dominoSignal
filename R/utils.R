@@ -248,17 +248,6 @@ dom_network_items <- function(dom, clusters = NULL, return = NULL) {
     }
 }
 
-#' Specify the cache
-#' 
-#' @param path Path to tstore cache on
-#' @return BiocFileCache
-#' @export
-cache <- function(path = tools::R_user_dir(package = "domino2")) {
-  bfc <- BiocFileCache::BiocFileCache(path, ask = FALSE)
-
-  bfc
-}
-
 #' Convert python True/False syntax to TRUE/FALSE
 #' 
 #' @param x character vector. If it consists of only "True" and "False" strings, the vector is converted to an R logical vector

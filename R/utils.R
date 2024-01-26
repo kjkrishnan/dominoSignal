@@ -288,7 +288,7 @@ TF_syntax_to_R <- function(x) {
 #' 
 check_filepath <- function(x, ...) {
   if(is.character(x)) {
-    y <- read_cellphoneDB_file(x, ...)
+    y <- read_cellphonedb_file(x, ...)
   } else {
     y <- x
   }

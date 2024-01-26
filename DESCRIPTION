@@ -16,7 +16,6 @@ BugReports: https://github.com/FertigLab/domino2/issues
 Depends:
     R(>= 4.2.0),
 Imports:
-    biomaRt,
     ComplexHeatmap,
     circlize,
     ggpubr,

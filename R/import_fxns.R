@@ -1,4 +1,3 @@
-#' @import biomaRt
 #' @import stats
 #' @importFrom utils read.csv
 #' @importFrom Matrix rowSums
@@ -349,59 +348,6 @@ create_domino <- function(
     dom@misc$cl_rec_percent <- cl_rec_percent
   }
   return(dom)
-}
-
-#' Use biomaRt to convert genes
-#'
-#' This function reads in a vector of genes and converts the genes to specified symbol type
-#'
-#' @param genes Vector of genes to convert.
-#' @param from Format of gene input (ENSMUSG, ENSG, MGI, or HGNC)
-#' @param to Format of gene output (MGI, or HGNC)
-#' @param host Host to connect to. Defaults to https://www.ensembl.org following the useMart default, but can be changed to archived hosts if useMart fails to connect.
-#' @return A data frame with input genes as col 1 and output as col 2
-#' @keywords internal
-#'
-convert_genes <- function(
-    genes, from = c("ENSMUSG", "ENSG", "MGI", "HGNC"), to = c("MGI", "HGNC"),
-    host = "https://www.ensembl.org") {
-  # Check inputs:
-  stopifnot(`Genes must be a vector of characters` = (is(genes, "character") & is(genes, "vector")))
-  stopifnot(`From must be one of ENSMUSG, ENSG, MGI, or HGNC` = from %in% c(
-    "ENSMUSG", "ENSG", "MGI",
-    "HGNC"
-  ))
-  stopifnot(`To must be one of MGI or HGNC` = to %in% c("MGI", "HGNC"))
-  stopifnot(`Host must be  web host to connect to` = (is(host, "character") & length(host) == 1))
-  if (from == "ENSMUSG") {
-    srcMart <- useMart("ensembl", dataset = "mmusculus_gene_ensembl", host = host)
-    sourceAtts <- "ensembl_gene_id"
-  }
-  if (from == "ENSG") {
-    srcMart <- useMart("ensembl", dataset = "hsapiens_gene_ensembl", host = host)
-    sourceAtts <- "ensembl_gene_id"
-  }
-  if (from == "MGI") {
-    srcMart <- useMart("ensembl", dataset = "mmusculus_gene_ensembl", host = host)
-    sourceAtts <- "mgi_symbol"
-  }
-  if (from == "HGNC") {
-    srcMart <- useMart("ensembl", dataset = "hsapiens_gene_ensembl", host = host)
-    sourceAtts <- "hgnc_symbol"
-  }
-  if (to == "MGI") {
-    tarMart <- useMart("ensembl", dataset = "mmusculus_gene_ensembl", host = host)
-    tarAtts <- "mgi_symbol"
-  }
-  if (to == "HGNC") {
-    tarMart <- useMart("ensembl", dataset = "hsapiens_gene_ensembl", host = host)
-    tarAtts <- "hgnc_symbol"
-  }
-  genesV2 <- getLDS(
-    attributes = sourceAtts, filters = sourceAtts, values = genes, mart = srcMart,
-    attributesL = tarAtts, martL = tarMart, uniqueRows = FALSE
-  )
-  return(genesV2)
 }
 
 #' Adds a column to the RL signaling data frame.

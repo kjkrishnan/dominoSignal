@@ -20,7 +20,7 @@
 #' )
 #' test_file <- paste0(tdir, "/test_prot.csv")
 #' write.csv(df, file = test_file, row.names = FALSE)
-#' read_cellphoneDB_file(filename = test_file, set_unannotated = TRUE)
+#' read_cellphonedb_file(filename = test_file, set_unannotated = TRUE)
 #' 
 
 read_cellphonedb_file <- function(filename, set_unannotated = FALSE) {

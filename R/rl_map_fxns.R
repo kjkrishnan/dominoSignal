@@ -75,7 +75,6 @@ parse_interaction <- function(int, genes, proteins, partner = c("A", "B"), compl
   feat <- int[[p]]
   prot_name <- int[[pn]]
   if(feat %in% complexes[["complex_name"]]) {
-    # annotation of protein complex
     cpx <- complexes[complexes[["complex_name"]] == feat, ]
     comp_prot <- cpx[, c("uniprot_1", "uniprot_2", "uniprot_3", "uniprot_4")]
     comp_prot <- comp_prot[comp_prot != ""]
@@ -95,6 +94,7 @@ parse_interaction <- function(int, genes, proteins, partner = c("A", "B"), compl
       FUN.VALUE = character(1)
     )
     res[[paste0("gene_", partner)]] <- paste(comp_gene, collapse = ",")
+    res[[paste0("protein_", partner)]] <- paste(comp_prot, collapse = ",")
     res[[paste0("type_", partner)]] <- ifelse(cpx[["receptor"]], "R", "L")
     res[[paste0("name_", partner)]] <- gsub(" ", "_", feat)
   } else if (feat %in% proteins[["uniprot"]]) {
@@ -109,10 +109,12 @@ parse_interaction <- function(int, genes, proteins, partner = c("A", "B"), compl
       comp_gene <- comp_gene[1]
     }
     res[[paste0("gene_", partner)]] <- comp_gene
+    res[[paste0("protein_", partner)]] <- comp_prot
     res[[paste0("type_", partner)]] <- ifelse(prot[["receptor"]], "R", "L")
     res[[paste0("name_", partner)]] <- comp_gene
   } else {
     res[[paste0("gene_", partner)]] <- ""
+    res[[paste0("protein_", partner)]] <- ""
     res[[paste0("type_", partner)]] <- ""
     res[[paste0("name_", partner)]] <- feat
   }
@@ -177,9 +179,11 @@ create_rl_map_cellphonedb <- function(
   rl_mat <- t(do.call(cbind, rl_map_ls))
   rl_map <- data.frame(
     "gene_A" = as.character(rl_mat[,c("gene_A")]),
+    "protein_A" = as.character(rl_mat[,c("protein_A")]),
     "type_A" = as.character(rl_mat[,c("type_A")]),
     "name_A" = as.character(rl_mat[,c("name_A")]),
     "gene_B" = as.character(rl_mat[,c("gene_B")]),
+    "protein_B" = as.character(rl_mat[,c("protein_B")]),
     "type_B" = as.character(rl_mat[,c("type_B")]),
     "name_B" = as.character(rl_mat[,c("name_B")]),
     "int_pair" = as.character(rl_mat[,c("int_pair")]),

@@ -163,9 +163,11 @@ test_that("create_rl_map_cellphonedb: using interactions with and without comple
   
   rl_map_check <- data.frame(
     gene_A = c("GENEA", "GENEA"),
+    protein_A = c("simpleA", "simpleA"),
     type_A = c("L", "L"),
-    name_A = c("GENA", "GENEA"),
+    name_A = c("GENEA", "GENEA"),
     gene_B = c("GENEB1,GENEB2", "GENEC"),
+    protein_B = c("complexB1,complexB2", "simpleC"),
     type_B = c("R", "R"),
     name_B = c("complexB", "GENEC"),
     int_pair = c("GENEA & complexB", "GENEA & GENEC"),
@@ -204,9 +206,11 @@ test_that("ortholog_mapping", {
 test_that("rl_map_ortholog_conversion: cases for simple interactions, complex interactions, and running without complexes", {
   test_rl_map <- data.frame(
     gene_A = c("HUMA1", "HUMB1", "HUMC1", "HUMD1", "HUMD2", "HUMA1,HUMA2", "HUMB1,HUMA2", "HUMC1,HUMA2", "HUMD1,HUMA2", "HUMD2,HUMA2"),
+    protein_A = c("huma1", "humb1", "humc1", "humd1", "humd2", "huma1,huma2", "humb1,huma2", "humc1,huma2", "humd1,huma2", "humd2,huma2"),
     type_A = rep("R", 10),
     name_A = c("HUMA1", "HUMB1", "HUMC1", "HUMD1", "HUMD2", "complexAA", "complexBA", "complexCA", "complexD1A", "complexD2A"),
     gene_B = rep("HUME", 10),
+    protein_B = rep("hume", 10),
     type_B = rep("L", 10),
     name_B = rep("HUME", 10),
     int_pair = c("HUMA1 & HUME", "HUMB1 & HUME", "HUMC1 & HUME", "HUMD1 & HUME", "HUMD2 & HUME", "complexAA & HUME", "complexBA & HUME", "complexCA & HUME", "complexD1A & HUME", "complexD2A & HUME"),
@@ -225,9 +229,11 @@ test_that("rl_map_ortholog_conversion: cases for simple interactions, complex in
     ortho_rl_map[ortho_rl_map$name_A == "HUMA1",],
     c(
       gene_A = "Musa1",
+      protein_A = "huma1",
       type_A = "R",
       name_A = "HUMA1",
       gene_B = "Muse",
+      protein_B = "hume",
       type_B = "L",
       name_B = "HUME",
       int_pair = "HUMA1 & HUME",
@@ -242,9 +248,11 @@ test_that("rl_map_ortholog_conversion: cases for simple interactions, complex in
     ortho_rl_map[ortho_rl_map$name_A == "HUMB1",],
     c(
       gene_A = c("Musb1", "Musb2"),
+      protein_A = c("humb1", "humb1"),
       type_A = c("R", "R"),
       name_A = c("HUMB1", "HUMB1"),
       gene_B = c("Muse", "Muse"),
+      protein_B = c("hume", "hume"),
       type_B = c("L", "L"),
       name_B = c("HUME", "HUME"),
       int_pair = c("HUMB1 & HUME", "HUMB1 & HUME"),
@@ -256,16 +264,18 @@ test_that("rl_map_ortholog_conversion: cases for simple interactions, complex in
   # simple int, one-none ortho
   expect_equal(
     dim(ortho_rl_map[ortho_rl_map$name_A == "HUMC1",]),
-    c(0, 10)
+    c(0, 12)
   )
   # simple int, many-one ortho
   expect_equal(
     ortho_rl_map[ortho_rl_map$name_A %in% c("HUMD1", "HUMD2"),],
     c(
       gene_A = c("Musd1", "Musd1"),
+      protein_A = c("humd1", "humd2"),
       type_A = c("R", "R"),
       name_A = c("HUMD1", "HUMD2"),
       gene_B = c("Muse", "Muse"),
+      protein_B = c("hume", "hume"),
       type_B = c("L", "L"),
       name_B = c("HUME", "HUME"),
       int_pair = c("HUMD1 & HUME", "HUMD2 & HUME"),
@@ -279,9 +289,11 @@ test_that("rl_map_ortholog_conversion: cases for simple interactions, complex in
     ortho_rl_map[ortho_rl_map$name_A == "complexAA",],
     c(
       gene_A = "Musa1,Musa2",
+      protein_A = "huma1,huma2",
       type_A = "R",
       name_A = "complexAA",
       gene_B = "Muse",
+      protein_B = "hume",
       type_B = "L",
       name_B = "HUME",
       int_pair = "complexAA & HUME",
@@ -295,9 +307,11 @@ test_that("rl_map_ortholog_conversion: cases for simple interactions, complex in
     ortho_rl_map[ortho_rl_map$name_A == "complexBA",],
     c(
       gene_A = c("Musb1,Musa2", "Musb2,Musa2"),
+      protein_A = c("humb1,huma2", "humb1,huma2"),
       type_A = c("R", "R"),
       name_A = c("complexBA", "complexBA"),
       gene_B = c("Muse", "Muse"),
+      protein_B = c("hume", "hume"),
       type_B = c("L", "L"),
       name_B = c("HUME", "HUME"),
       int_pair = c("complexBA & HUME", "complexBA & HUME"),
@@ -309,16 +323,18 @@ test_that("rl_map_ortholog_conversion: cases for simple interactions, complex in
   # complex int, one-none ortho
   expect_equal(
     dim(ortho_rl_map[ortho_rl_map$name_A == "complexCA",]),
-    c(0, 10)
+    c(0, 12)
   )
   # complex int, many-one ortho
   expect_equal(
     ortho_rl_map[ortho_rl_map$name_A %in% c("complexD1A", "complexD2A"),],
     c(
       gene_A = c("Musd1,Musa2", "Musd1,Musa2"),
+      protein_A = c("humd1,huma2", "humd2,huma2"),
       type_A = c("R", "R"),
       name_A = c("complexD1A", "complexD2A"),
       gene_B = c("Muse", "Muse"),
+      protein_B = c("hume", "hume"),
       type_B = c("L", "L"),
       name_B = c("HUME", "HUME"),
       int_pair = c("complexD1A & HUME", "complexD2A & HUME"),
@@ -331,7 +347,7 @@ test_that("rl_map_ortholog_conversion: cases for simple interactions, complex in
   # running without complexes returns only simple interactions
   expect_equal(
     dim(ortho_rl_map_noComplex),
-    c(5, 10)
+    c(5, 12)
   )
 })
 

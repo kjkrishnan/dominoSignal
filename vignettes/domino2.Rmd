@@ -311,10 +311,9 @@ The change to use rl\_map formatting also enables users to manually append inter
 # from the CellPhoneDB reference are edited or the interactions are manually added
 
 col_int_df <- data.frame(
-    "int_pair" = "a11b1 complex & COLA1_HUMAN",
-    "name_A" = "a11b1 complex", "uniprot_A" = "P05556,Q9UKX5", "gene_A" = "ITB1,ITA11", "type_A" = "R",
-    "name_B" = "COLA1_HUMAN", "uniprot_B" = "P02452,P08123", "gene_B" = "COL1A1,COL1A2", "type_B" = "L",
-    "annotation_strategy" = "manual", "source" = "manual", "database_name" = "manual"
+    "gene_A" = "ITB1,ITA11", "protein_A" = "P05556,Q9UKX5", "type_A" = "R", "name_A" = "a11b1 complex",  
+    "gene_B" = "COL1A1,COL1A2", "protein_B" = "P02452,P08123", "type_B" = "L", "name_B" = "COLA1_HUMAN",
+    "int_pair" = "a11b1 complex & COLA1_HUMAN", "annotation_strategy" = "manual", "source" = "manual", "database_name" = "manual"
 )
 rl_map_append <- rbind(col_int_df, rl_map)
 knitr::kable(head(rl_map_append))

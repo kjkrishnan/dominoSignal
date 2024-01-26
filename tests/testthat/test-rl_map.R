@@ -13,13 +13,13 @@ test_that("read_cellphonedb_file: replace empty cells with FALSE", {
   )
   df_check <- data.frame(
     "uniprot" = c("A", "B", "C"), 
-    "transmembrane" = c("TRUE", "FALSE", "FALSE"), 
-    "peripheral" = c("TRUE", "FALSE", "FALSE"), 
-    "secreted" = c("TRUE", "FALSE", "FALSE"), 
-    "secreted_highlight" = c("TRUE", "FALSE", "FALSE"), 
-    "receptor" = c("TRUE", "FALSE", "FALSE"), 
-    "integrin" = c("TRUE", "FALSE", "FALSE"), 
-    "other" = c("TRUE", "FALSE", "FALSE")
+    "transmembrane" = c(TRUE, FALSE, FALSE), 
+    "peripheral" = c(TRUE, FALSE, FALSE), 
+    "secreted" = c(TRUE, FALSE, FALSE), 
+    "secreted_highlight" = c(TRUE, FALSE, FALSE), 
+    "receptor" = c(TRUE, FALSE, FALSE), 
+    "integrin" = c(TRUE, FALSE, FALSE), 
+    "other" = c(TRUE, FALSE, FALSE)
   )
   test_file <- paste0(tdir, "/test_prot.csv")
   write.csv(df, file = test_file, row.names = FALSE)

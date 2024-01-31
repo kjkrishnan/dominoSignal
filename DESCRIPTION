@@ -1,4 +1,4 @@
-Package: domino2
+Package: DominoCellNet
 Title: Cell Communication Analysis for Single Cell RNA Sequencing
 Version: 0.99.1
 Authors@R: c(

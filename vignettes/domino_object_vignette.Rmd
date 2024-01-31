@@ -1,8 +1,8 @@
 ---
-title: "Interacting with domino2 Objects"
+title: "Interacting with domino Objects"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Interacting with domino2 Objects}
+  %\VignetteIndexEntry{Interacting with domino Objects}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -21,7 +21,7 @@ options(timeout = 600)
 ```
 
 ```{r libraries, include=FALSE}
-library(domino2)
+library(DominoCellNet)
 ```
 
 ```{r setup, include = FALSE}
@@ -32,7 +32,7 @@ dom <- readRDS(tmp_path)
 ```
 
 
-In order to better implement some of the changes that have been made in domino2, the structure of the domino object has been modified. Here, we describe the data that is stored in the domino object, as well as how best to access this data.
+In order to better implement some of the changes that have been made in DominoCellNet, the structure of the domino object has been modified. Here, we describe the data that is stored in the domino object, as well as how best to access this data.
 
 ## Object contents
 
@@ -58,7 +58,7 @@ print(dom)
 In order to facilitate access to the information stored in the domino object, we have provided a collection of functions to retrieve specific items. These functions begin with "dom_" and can be listed using `ls()`.
 
 ```{r list-functions}
-ls("package:domino2", pattern = "^dom_")
+ls("package:DominoCellNet", pattern = "^dom_")
 ```
 
 ### Input data
@@ -182,7 +182,7 @@ dom_info(dom)
 
 ## Continued Development
 
-Since domino2 is a package still being developed, there are new functions and features that will be implemented in future versions. In the meantime, we have put together further information on [plotting](vignette("plotting_vignette")) and an example analysis can be viewed on our [Getting Started](vignette("domino2")) page. Additionally, if you find any bugs, have further questions, or want to share an idea, please let us know [here](https://github.com/FertigLab/domino_development/issues).
+Since DominoCellNet is a package still being developed, there are new functions and features that will be implemented in future versions. In the meantime, we have put together further information on [plotting](vignette("plotting_vignette")) and an example analysis can be viewed on our [Getting Started](vignette("DominoCellNet")) page. Additionally, if you find any bugs, have further questions, or want to share an idea, please let us know [here](https://github.com/FertigLab/domino_development/issues).
 
 <details><summary>Vignette Build Information</summary>
 Date last built and session information:

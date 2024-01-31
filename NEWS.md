@@ -1,3 +1,8 @@
+# DominoCellNet v0.99.1
+
+## Package name update
+- Name updated to distinguish from other packages on CRAN and Bioconductor
+
 # domino2 v0.2.2
 
 ## Linkage functions

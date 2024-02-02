@@ -16,9 +16,9 @@ a printed description of the number of cells in a domino object and its build st
 Shows content overview of domino object
 }
 \examples{
-domino2:::pbmc_dom_built_tiny
+DominoCellNet:::pbmc_dom_built_tiny
 
-show(domino2:::pbmc_dom_built_tiny)
+show(DominoCellNet:::pbmc_dom_built_tiny)
 
 }
 \keyword{internal}

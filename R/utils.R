@@ -209,7 +209,9 @@ dom_info <- function(dom) {
 #' @return A vector containing all features, receptors, or ligands in the data set or a list containing all three.
 #' @export
 #' @examples
-#' monocyte_receptors <- dom_network_items(DominoCellNet:::pbmc_dom_built_tiny, "CD14_monocyte", "receptors")
+#' monocyte_receptors <- dom_network_items(
+#'     DominoCellNet:::pbmc_dom_built_tiny, "CD14_monocyte", "receptors"
+#' )
 #' all_tfs <- dom_network_items(DominoCellNet:::pbmc_dom_built_tiny, return = "features")
 #' 
 dom_network_items <- function(dom, clusters = NULL, return = NULL) {

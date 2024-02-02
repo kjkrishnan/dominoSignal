@@ -23,7 +23,9 @@ comparing signaling networks across two separate conditions. In order to run
 this \code{\link[=build_domino]{build_domino()}} must be run on the object previously.
 }
 \examples{
-monocyte_receptors <- dom_network_items(DominoCellNet:::pbmc_dom_built_tiny, "CD14_monocyte", "receptors")
+monocyte_receptors <- dom_network_items(
+    DominoCellNet:::pbmc_dom_built_tiny, "CD14_monocyte", "receptors"
+)
 all_tfs <- dom_network_items(DominoCellNet:::pbmc_dom_built_tiny, return = "features")
 
 }

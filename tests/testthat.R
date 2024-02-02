@@ -1,4 +1,4 @@
 library("testthat")
-library("domino2")
+library("DominoCellNet")
 
-test_check("domino2")
+test_check("DominoCellNet")

@@ -45,10 +45,6 @@ The contents of the [domino object class](`domino-class`) include a few broad gr
 
 For commonly accessed information (the number of cells, clusters, and some build information), the show and print methods for domino objects can be used.
 
-```{r show}
-dom
-```
-
 ```{r print}
 print(dom)
 ```

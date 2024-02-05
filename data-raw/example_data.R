@@ -1,7 +1,9 @@
 # Code for preparing example objects for use in vignettes
 # Accessible to users for exploration as well
 library(Seurat)
-library(domino2)
+# library(domino2)
+# install.packages("../DominoCellNet_0.99.1.tar.gz")
+library(DominoCellNet)
 
 # Zenodo host of outputs from SCENIC analysis
 data_url <- "https://zenodo.org/records/10222767/files"
@@ -114,4 +116,4 @@ pbmc_dom <- build_domino(
 )
 
 # Save domino object for generating test data
-saveRDS(pbmc_dom, "inst/extdata/pbmc_domino_built.rds")
+saveRDS(pbmc_dom, "inst/extdata/pbmc_DominoCellNet_built.rds")

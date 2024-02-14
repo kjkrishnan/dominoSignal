@@ -344,22 +344,9 @@ create_domino <- function(
     use_clusters = TRUE, tf_targets = NULL, verbose = TRUE, use_complexes = TRUE, rec_min_thresh = 0.025,
     remove_rec_dropout = TRUE, tf_selection_method = "clusters", tf_variance_quantile = 0.5) {
   # Check inputs:
-  stopifnot(`rl_map must be a data.frame with column names gene_A, gene_B, type_A, and type_B` = (is(
-    rl_map,
-    "data.frame"
-  ) & c("gene_A", "gene_B", "type_A", "type_B") %in% colnames(rl_map)))
-  stopifnot(`features must be either a file path or a named matrix with cells as columns and features as rows` = ((is(
-    features,
-    "character"
-  ) & length(features) == 1) | (is(features, "matrix") & !is.null(rownames(features)) &
-    !is.null(colnames(features))) | (is(features, "data.frame") & !is.null(rownames(features)) &
-    !is.null(colnames(features)))))
-  stopifnot(`Either a Seurat object OR counts, z scores, and clusters must be provided` = (is(ser, "Seurat") |
-    (!is.null(counts) & !is.null(rownames(counts)) & !is.null(colnames(counts)) &
-      is(z_scores, "matrix") & !is.null(rownames(z_scores)) & !is.null(colnames(z_scores)) & is(
-      clusters,
-      "factor"
-    ) & !is.null(names(clusters)))))
+  check_create_domino(
+    rl_map = rl_map, ser = ser, counts = counts, clusters = clusters, tf_targets = tf_targets
+  )
   stopifnot(`rec_min_thresh must be a number between 0 and 1` = (is(rec_min_thresh, "numeric") &
     rec_min_thresh <= 1 & rec_min_thresh >= 0))
   # Create object

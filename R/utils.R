@@ -5,6 +5,7 @@
 #' @param arg The argument to check
 #' @param allow_class Vector of allowed classes
 #' @param allow_len Vector of allowed lengths
+#' @keywords internal
 check_arg <- function(arg, allow_class = c("character"), allow_len = NULL) {
   argname <- deparse(substitute(arg))
   classes <- paste(allow_class, collapse = ",")
@@ -25,6 +26,7 @@ check_arg <- function(arg, allow_class = c("character"), allow_len = NULL) {
 #'
 #' @param obj
 #' @return obj the object itself in case its not a character
+#' @keywords internal
 read_if_char <- function(obj) {
   if (is(obj, "character")) {
     obj <- read.csv(obj, stringsAsFactors = FALSE)
@@ -36,6 +38,7 @@ read_if_char <- function(obj) {
 #'
 #' @param obj Object that will be converted
 #' @return obj The converted object
+#' @keywords internal
 conv_py_bools <- function(obj) {
   for (x in colnames(obj)) {
     bools <- sort(unique(obj[[x]]))

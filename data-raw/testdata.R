@@ -125,7 +125,26 @@ pbmc_dom_built_tiny <- build_domino(
   min_rec_percentage = 0.01
 )
 
+pbmc_dom_built_tiny_2 <- build_domino(
+  dom = pbmc_dom_tiny,
+  min_tf_pval = .15,
+  max_tf_per_clust = Inf,
+  max_rec_per_tf = Inf,
+  rec_tf_cor_threshold = .075,
+  min_rec_percentage = 0.02
+)
+
+pbmc_dom_built_tiny_3 <- build_domino(
+  dom = pbmc_dom_tiny,
+  min_tf_pval = .1,
+  max_tf_per_clust = Inf,
+  max_rec_per_tf = Inf,
+  rec_tf_cor_threshold = .05,
+  min_rec_percentage = 0.001
+)
+
 # Save all test files to internal sysdata object
-usethis::use_data(pbmc_dom_built_tiny, complexes_tiny, genes_tiny, proteins_tiny, interactions_tiny,
+usethis::use_data(pbmc_dom_built_tiny, pbmc_dom_built_tiny_2, pbmc_dom_built_tiny_3, complexes_tiny,
+    genes_tiny, proteins_tiny, interactions_tiny,
     pbmc_dom_tiny, regulon_list_tiny, rl_map_tiny, regulons_tiny, clusters_tiny,
     RNA_count_tiny, RNA_zscore_tiny, auc_tiny, internal = TRUE)

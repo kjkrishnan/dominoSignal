@@ -13,7 +13,7 @@
 #' @keywords internal
 #' 
 
-check_create_domino <- function(rl_map, ser, counts, clusters, tf_targets) {
+check_create_domino <- function(rl_map, features, ser, counts, clusters, tf_targets) {
   # format of rl_map
   stopifnot(
     `rl_map must be a data.frame with column names gene_A, gene_B, type_A, and type_B` = 
@@ -39,7 +39,7 @@ check_create_domino <- function(rl_map, ser, counts, clusters, tf_targets) {
   # Either a Seurat object or expression matrices are provided as arguments
   stopifnot(
     `Either a Seurat object OR counts, z scores, and clusters must be provided` =
-      is(!is.null(ser) & (!is.null(counts) | !is.null(z_scores) | !is.null(clusters)))
+      (!is.null(ser) & (!is.null(counts) | !is.null(z_scores) | !is.null(clusters)))
   ) 
   # checks on expression matrix inputs if a Seurat object is not provided
   if(is.null(ser)) {

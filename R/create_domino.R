@@ -71,9 +71,7 @@ neo_create_domino <- function(
       "build_vars" = NULL,
       "rec_cor" = tfs_rec_cor,
       "cl_rec_percent" = cl_rec_precent
-    ),
-    cl_signaling_matrices = NULL,
-    signaling = NULL
+    )
   )
   return(dom)
 }

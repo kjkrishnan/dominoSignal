@@ -1,5 +1,82 @@
 # internal scripts for the create_domino() function
 
+neo_create_domino <- function(
+    rl_map, features, ser = NULL, counts = NULL, z_scores = NULL,
+    clusters = NULL, use_clusters = TRUE, tf_targets = NULL, verbose = TRUE,
+    use_complexes = TRUE, rec_min_thresh = 0.025, remove_rec_dropout = TRUE,
+    tf_selection_method = "clusters", tf_variance_quantile = 0.5){
+  # check function inputs
+  check_arg(rl_map, allow_class = "data.frame",
+            need_vars = c("gene_A", "gene_B", "type_A", "type_B"))
+  check_arg(features, allow_class = c("data.frame", "character", "matrix"))
+  if (any(class(features) %in% c("data.frame", "matrix"))) {
+    check_arg(features, need_rownames = TRUE, need_colnames = TRUE)
+  }
+  if (!is.null(ser)) {
+    check_arg(ser, allow_class = "Seurat")
+  } else {
+    check_arg(counts, allow_class = c("matrix", "data.frame", "Matrix", "dgCMatrix"),
+              need_rownames = TRUE, need_colnames = TRUE)
+    check_arg(z_scores, allow_class = "matrix", need_rownames = TRUE,
+              need_colnames = TRUE)
+    check_arg(clusters, allow_class = "factor", need_names = TRUE)
+  }
+  check_arg(rec_min_thresh, allow_class = c("numeric"), allow_range = c(0, 1))
+  check_arg(tf_selection_method,
+            allow_values = c("clusters", "variable", "all"))
+  if (!is.null(ser) & (!is.null(clusters) | !is.null(z_scores) | !is.null(counts))) {
+    warning("Ser and z_score, clusters, or counts provided. Defaulting to ser.")
+  }
+  # rl_map processing
+  rl_parse <- read_rl_map_genes(rl_map)
+  linkage_rec_lig <- write_rec_lig_linkages(rl_parse = rl_parse)
+  linkage_complexes <- read_rl_map_complexes(rl_parse = rl_parse, use_complexes = use_complexes)
+  receptor_names <- rl_parse[["R.name"]]
+  receptor_genes <- unique(unlist(strsplit(rl_parse[["R.gene"]], split = "\\,")))
+  
+  # Establish TF-rec linkages
+  cluster_de <- select_cluster_tf(
+    features = features, clusters = clusters, 
+    method = "one.sided.wilcox", verbose = verbose
+  )
+  tfs_rec_cor <- test_tfs_rec_linkage(
+    features = features, z_scores = z_scores, counts = counts,
+    feature_de = cluster_de, receptors = receptor_names, 
+    method = "spearman.correlation", verbose = verbose
+  )
+  tfs_rec_cor_filter <- filter_tf_regulon_receptors(cor_mat = tfs_rec_cor, tf_targets = tf_targets)
+  if(use_complexes) {
+    tfs_rec_cor_filter <- assess_complex_receptor_cor(receptors = receptor_names, complexes_list = linkage_complexes, cor_mat = tfs_rec_cor)
+  }
+  cl_rec_precent <- calc_rec_percentage(counts = counts, clusters = clusters, receptor_genes = receptor_genes)
+  
+  # create domino result
+  dom <- new(
+    "domino",
+    db_info = rl_map,
+    z_scores = z_scores,
+    counts = counts,
+    clusters = clusters,
+    features = features,
+    cor = tfs_rec_cor_filter,
+    linkages = list(
+      "complexes" = linkage_complexes,
+      "rec_lig" = linkage_rec_lig,
+      "tf_targets" = tf_targets
+    ),
+    clust_de = cluster_de,
+    misc = list(
+      "create" = TRUE,
+      "build" = FALSE,
+      "build_vars" = NULL,
+      "rec_cor" = tfs_rec_cor,
+      "cl_rec_percent" = cl_rec_precent
+    ),
+    cl_signaling_matrices = NULL,
+    signaling = NULL
+  )
+  return(dom)
+}
 
 calc_rec_percentage <- function(counts, clusters, receptor_genes) {
   cluster_lvls <- levels(clusters)
@@ -67,7 +144,7 @@ test_tfs_rec_linkage <- function(
     feature_de,
     receptors, 
     method = "spearman.correlation", verbose = TRUE) {
-  tfs <- colnames(feature_de)
+  tfs <- rownames(feature_de)
   names(tfs) <- tfs
   n_tfs <- length(tfs)
   rec_z_scores <- z_scores[rownames(z_scores) %in% receptors,]

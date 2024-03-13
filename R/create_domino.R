@@ -27,6 +27,11 @@ neo_create_domino <- function(
   if (!is.null(ser) & (!is.null(clusters) | !is.null(z_scores) | !is.null(counts))) {
     warning("Ser and z_score, clusters, or counts provided. Defaulting to ser.")
   }
+  # ensure cell order matches between counts, z-scores, and features
+  cells <- colnames(counts)
+  features <- features[, cells]
+  z_scores <- z_scores[, cells]
+  
   # rl_map processing
   rl_parse <- read_rl_map_genes(rl_map)
   linkage_rec_lig <- write_rec_lig_linkages(rl_parse = rl_parse)

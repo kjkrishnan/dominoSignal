@@ -36,7 +36,7 @@ neo_create_domino <- function(
   rl_parse <- read_rl_map_genes(rl_map)
   linkage_rec_lig <- write_rec_lig_linkages(rl_parse = rl_parse)
   linkage_complexes <- read_rl_map_complexes(rl_parse = rl_parse, use_complexes = use_complexes)
-  receptor_names <- rl_parse[["R.name"]]
+  receptor_names <- unique(rl_parse[["R.name"]])
   receptor_genes <- unique(unlist(strsplit(rl_parse[["R.gene"]], split = "\\,")))
   
   # Establish TF-rec linkages

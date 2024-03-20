@@ -176,8 +176,8 @@ get_signaling_info <- function(dom, rec_clusters, cl_ligands_sub, exp_type) {
                             } else if (exp_type == "z_scores") {
                                 rec_sig <- mean(dom@z_scores[rec_sep, which(dom@clusters == cl)])
                             }
-                            tf_sig <- mean(dom@features[tf, which(dom@clusters == cl)])
                         }
+                        tf_sig <- mean(dom@features[tf, which(dom@clusters == cl)])
                     } else if (rec_cell == 1) {
                         if (length(rec_sep) > 1) {
                             if (exp_type == "counts") {

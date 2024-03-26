@@ -104,7 +104,7 @@ get_resolved_ligands <- function(dom) {
 #' @param send_clusters A cluster name or vector for which the outgoing signal is desired
 #' @param lig_genes A vector of ligand genes
 #' @param complexes A list of complexes with names as complex and values as component genes
-#' @param matrix A character vector of length 1, either "counts" or "z_scores"
+#' @param exp_type A character vector of length 1, either "counts" or "z_scores"
 #' @return A matrix of ligand expression for outgoing clusters
 #' @keywords internal
 get_ligand_expression <- function(dom, send_clusters, lig_genes, complexes, exp_type) {
@@ -153,7 +153,8 @@ get_ligand_expression <- function(dom, send_clusters, lig_genes, complexes, exp_
 #' @return A data frame of signaling information
 #' @keywords internal
 get_signaling_info <- function(dom, rec_clusters, cl_ligands_sub, exp_type) {
-    df <- data.frame()
+    row_list <- list()
+    i = 1
     for (cl in rec_clusters) {
         for (tf in names(dom@linkages$clust_tf_rec[[cl]])) {
             recs <- dom@linkages$clust_tf_rec[[cl]][[tf]]
@@ -215,18 +216,19 @@ get_signaling_info <- function(dom, rec_clusters, cl_ligands_sub, exp_type) {
                                 sending_cl = df_temp$cluster,
                                 receiving_cl = cl
                             )
-                            df <- rbind(df, new_row)
+                            row_list[[i]] <- new_row
+                            i = i + 1
                         }
                     }
                 }
             }
         }
     }
-    
+    df = purrr::list_rbind(row_list)
     return(df)
 }
 
-#' Turn domino objecct signaling information into a data frame
+#' Turn domino object signaling information into a data frame
 #' 
 #' This function takes a domino object and returns a data frame of signaling information with
 #' columns for ligand, receptor, transcription factor, ligand expression, receptor expression,

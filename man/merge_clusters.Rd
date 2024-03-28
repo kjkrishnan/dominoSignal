@@ -8,8 +8,6 @@ merge_clusters(dom_list, feature_method)
 }
 \arguments{
 \item{dom_list}{A list of domino objects to be merged}
-
-\item{feature_method}{A character string specifying the method for merging features}
 }
 \description{
 Merge clusters based on selected method

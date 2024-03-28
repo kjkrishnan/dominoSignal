@@ -6,7 +6,7 @@ library(testthat)
 # Start with resolve_names
 test_that("resolve_names replaces L.name with gene if L.name and gene are different, and the gene name has no comma.", {
     expect_equal(resolve_names(pbmc_dom_built_tiny, "integrin_aMb2_complex"), "integrin_aMb2_complex")
-    expect_equal(resolve_names(pbmc_dom_built_tiny, "IGF1"), "IFGF1")
+    expect_equal(resolve_names(pbmc_dom_built_tiny, "IGF1"), "IGF1")
 })
 
 # Test resolve_complexes
@@ -32,8 +32,11 @@ test_that("function returns list of resolved ligands.", {
 
 # Test get_ligand_expression
 test_that("function returns a matrix of expression", {
-    expect_equal(get_ligand_expression(pbmc_dom_built_tiny, lig_genes = "ITGB2"), pbmc_dom_built_tiny@counts["ITGB2", ])
-    expect_equal(get_ligand_expression(pbmc_dom_built_tiny, outgoing_cluster = "B_cell", lig_genes = c("IGF1", "IL7")), pbmc_dom_built_tiny@counts["IGF1", which(pbmc_dom_built_tiny@clusters == "B_cell")])
+    expect_equal(get_ligand_expression(pbmc_dom_built_tiny, send_clusters = levels(pbmc_dom_built_tiny@clusters),
+        lig_genes = "ITGB2", exp_type = "counts"), pbmc_dom_built_tiny@counts["ITGB2", ])
+    expect_equal(get_ligand_expression(pbmc_dom_built_tiny, send_clusters = levels(pbmc_dom_built_tiny@clusters), 
+        outgoing_cluster = "B_cell", lig_genes = c("IGF1", "IL7"), exp_type = "counts"),
+        pbmc_dom_built_tiny@counts["IGF1", which(pbmc_dom_built_tiny@clusters == "B_cell")])
 })
 
 # Test get_signaling_info

@@ -3,6 +3,7 @@
 
 require(purrr)
 require(tidyverse)
+require(Matrix)
 
 #' Convert between ligand names and gene names
 #' @param dom A built domino object
@@ -24,7 +25,7 @@ resolve_names <- function(dom, genes) {
         } else {
             remove_semicolons(int$L.name)
         }
-    })
+    }, USE.NAMES = FALSE)
     return(genes_resolved)
 }
 
@@ -39,11 +40,11 @@ resolve_complexes <- function(dom, genes) {
         # If ligand is in a complex
         if (length(l) > 1) {
             # Just check for semis and return? Why is this happening?
-            check_semis <- sapply(X = l, FUN = remove_semicolons)
+            check_semis <- sapply(X = l, FUN = remove_semicolons, USE.NAMES = FALSE)
         } else if (l %in% names(dom@linkages$complexes)) {
             # Return the genes in the complex (after checking for semicolons)
             subunits = dom@linkages$complexes[[l]]
-            check_semis <- sapply(X = subunits, FUN = remove_semicolons)
+            check_semis <- sapply(X = subunits, FUN = remove_semicolons, USE.NAMES = FALSE)
             # Otherwise just return the ligand (after checking for semicolons)
         } else {
             check_semis <- remove_semicolons(l)

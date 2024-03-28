@@ -61,21 +61,21 @@ merge_misc_cor <- function(misc_list, value_method) {
         for (c in col_cor) {
             if (value_method == "max") {
                 cor_merged[r, c] = max(unlist(lapply(cor_list, function(x) {
-                    x[r, c]
+                    rc_val_mat(x, r, c)
                 })))
             } else if (value_method == "min") {
                 cor_merged[r, c] = min(unlist(lapply(cor_list, function(x) {
-                    x[r, c]
+                    rc_val_mat(x, r, c)
                 })))
             } else if (value_method == "mean") {
                 cor_merged[r, c] = mean(unlist(lapply(cor_list, function(x) {
-                    x[r, c]
+                    rc_val_mat(x, r, c)
                 })))
             } else if (value_method == "range") {
                 cor_merged[r, c] = max(unlist(lapply(cor_list, function(x) {
-                    x[r, c]
+                    rc_val_mat(x, r, c)
                 }))) - min(unlist(lapply(cor_list, function(x) {
-                    x[r, c]
+                    rc_val_mat(x, r, c)
                 })))
             } else {
                 stop("Invalid method for value merging")
@@ -103,27 +103,23 @@ merge_misc_percent <- function(misc_list, value_method) {
     colnames(percent_merged) = col_percent
     for (r in rownames(percent_merged)) {
         for (c in colnames(percent_merged)) {
-            ind = unlist(lapply(percent_list, function(x) {
-                which(r %in% rownames(x) & c %in% colnames(x))
-            }))
-            percent_sub = percent_list[names(ind)]
             if (value_method == "max") {
-                percent_merged[r, c] = max(unlist(lapply(percent_sub, function(x) {
-                    x[r, c]
+                percent_merged[r, c] = max(unlist(lapply(percent_list, function(x) {
+                    rc_val_mat(x, r, c)
                 })), na.rm = TRUE)
             } else if (value_method == "min") {
-                percent_merged[r, c] = min(unlist(lapply(percent_sub, function(x) {
-                    x[r, c]
+                percent_merged[r, c] = min(unlist(lapply(percent_list, function(x) {
+                    rc_val_mat(x, r, c)
                 })), na.rm = TRUE)
             } else if (value_method == "mean") {
-                percent_merged[r, c] = mean(unlist(lapply(percent_sub, function(x) {
-                    x[r, c]
+                percent_merged[r, c] = mean(unlist(lapply(percent_list, function(x) {
+                    rc_val_mat(x, r, c)
                 })), na.rm = TRUE)
             } else if (value_method == "range") {
-                percent_merged[r, c] = max(unlist(lapply(percent_sub, function(x) {
-                    x[r, c]
-                })), na.rm = TRUE) - min(unlist(lapply(percent_sub, function(x) {
-                    x[r, c]
+                percent_merged[r, c] = max(unlist(lapply(percent_list, function(x) {
+                    rc_val_mat(x, r, c)
+                })), na.rm = TRUE) - min(unlist(lapply(percent_list, function(x) {
+                    rc_val_mat(x, r, c)
                 })), na.rm = TRUE)   
             } else {
                 stop("Invalid method for value merging")
@@ -150,7 +146,6 @@ merge_misc_build <- function(misc_list) { # May need to change structure in obje
                 x[[var]]
             })
             # Add object name to each item in var_list
-            names(var_list) = names(dom_list)
             merged[[names(build_vars[[1]][var])]] = unlist(var_list)
         } else {
             # If there is only one unique value, just use that
@@ -170,8 +165,8 @@ merge_misc_build <- function(misc_list) { # May need to change structure in obje
 merge_misc <- function(dom_list, value_method) {
     misc_list = lapply(dom_list, slot, "misc")
     merged_misc = list(
-        "build" = merge_misc_build(misc_list)[["build"]],
-        "create" = merge_misc_build(misc_list)[["create"]],
+        "build" = merge_misc_build_create(misc_list)[["build"]],
+        "create" = merge_misc_build_create(misc_list)[["create"]],
         "rl_map" = merge_misc_rl_map(misc_list),
         "rec_cor" = merge_misc_cor(misc_list, value_method),
         "cl_rec_percent" = merge_misc_percent(misc_list, value_method),
@@ -236,27 +231,23 @@ merge_de <- function(dom_list, value_method) {
     colnames(de_merged) = col_de
     for (r in rownames(de_merged)) {
         for (c in colnames(de_merged)) {
-            ind = unlist(lapply(de_list, function(x) {
-                which(r %in% rownames(x) & c %in% colnames(x))
-            }))
-            de_sub = de_list[names(ind)]
             if (value_method == "max") {
-                de_merged[r, c] = max(unlist(lapply(de_sub, function(x) {
-                    x[r, c]
+                de_merged[r, c] = max(unlist(lapply(de_list, function(x) {
+                    rc_val_mat(x, r, c)
                 })), na.rm = TRUE)
             } else if (value_method == "min") {
-                de_merged[r, c] = min(unlist(lapply(de_sub, function(x) {
-                    x[r, c]
+                de_merged[r, c] = min(unlist(lapply(de_list, function(x) {
+                    rc_val_mat(x, r, c)
                 })), na.rm = TRUE)
             } else if (value_method == "mean") {
-                de_merged[r, c] = mean(unlist(lapply(de_sub, function(x) {
-                    x[r, c]
+                de_merged[r, c] = mean(unlist(lapply(de_list, function(x) {
+                    rc_val_mat(x, r, c)
                 })), na.rm = TRUE)
             } else if (value_method == "range") {
-                de_merged[r, c] = max(unlist(lapply(de_sub, function(x) {
-                    x[r, c]
-                })), na.rm = TRUE) - min(unlist(lapply(de_sub, function(x) {
-                    x[r, c]
+                de_merged[r, c] = max(unlist(lapply(de_list, function(x) {
+                    rc_val_mat(x, r, c)
+                })), na.rm = TRUE) - min(unlist(lapply(de_list, function(x) {
+                    rc_val_mat(x, r, c)
                 })), na.rm = TRUE)
             } else {
                 stop("Invalid method for value merging")
@@ -292,7 +283,7 @@ merge_zs <- function(dom_list, feature_method) {
         feats = RVenn::unite(all_feats)
     } else if (feature_method == "outersect") {
         feats = c()
-        for (i in seq_along(all_feats)) {
+        for (i in seq_along(zs_list)) {
             unique_items = RVenn::discern(all_feats, i)
             feats = c(feats, unique_items)
         }
@@ -313,7 +304,7 @@ merge_zs <- function(dom_list, feature_method) {
 #' @param value_method A character string specifying the method for merging numeric values
 #' @keywords internal
 merge_cor <- function(dom_list, value_method) {
-    cor_list = lapply(dom_list, slot, "rec_cor")
+    cor_list = lapply(dom_list, slot, "cor")
     row_cor = unique(unlist(lapply(cor_list, rownames)))
     col_cor = unique(unlist(lapply(cor_list, colnames)))
     cor_merged = matrix(0, nrow = length(row_cor), ncol = length(col_cor))
@@ -321,30 +312,26 @@ merge_cor <- function(dom_list, value_method) {
     colnames(cor_merged) = col_cor
     for (r in row_cor) {
         for (c in col_cor) {
-            ind = unlist(lapply(cor_list, function(x) {
-                which(r %in% rownames(x) & c %in% colnames(x))
-            }))
-            cor_sub = cor_list[names(ind)]
             if (value_method == "max") {
-                cor_merged[r, c] = max(unlist(lapply(cor_sub, function(x) {
-                    x[r, c]
+                cor_merged[r, c] = max(unlist(lapply(cor_list, function(x) {
+                    rc_val_mat(x, r, c)
                 })))
             } else if (value_method == "min") {
-                cor_merged[r, c] = min(unlist(lapply(cor_sub, function(x) {
-                    x[r, c]
+                cor_merged[r, c] = min(unlist(lapply(cor_list, function(x) {
+                    rc_val_mat(x, r, c)
                 })))
             } else if (value_method == "mean") {
                 cor_merged[r, c] = mean(unlist(lapply(cor_list, function(x) {
-                    x[r, c]
+                    rc_val_mat(x, r, c)
                 })))
             } else if (value_method == "range") {
-                cor_merged[r, c] = max(unlist(lapply(cor_sub, function(x) {
-                    x[r, c]
-                }))) - min(unlist(lapply(cor_sub, function(x) {
-                    x[r, c]
+                cor_merged[r, c] = max(unlist(lapply(cor_list, function(x) {
+                    rc_val_mat(x, r, c)
+                }))) - min(unlist(lapply(cor_list, function(x) {
+                    rc_val_mat(x, r, c)
                 })))
             } else {
-                stop("Invalid method for feature merging")
+                stop("Invalid method for value merging")
             }
         }
     }
@@ -356,25 +343,11 @@ merge_cor <- function(dom_list, value_method) {
 #' Merge clusters based on selected method
 #' 
 #' @param dom_list A list of domino objects to be merged
-#' @param feature_method A character string specifying the method for merging features
 #' @keywords internal
 merge_clusters <- function(dom_list, feature_method) {
     clust_list = lapply(dom_list, slot, "clusters")
-    # Return clusters based on feature_method with RVenn functions
-    clusters_list = RVenn::Venn(clust_list)
-    if (feature_method == "union") {
-        clusters = RVenn::unite(clusters_list)
-    } else if (feature_method == "intersect") {
-        clusters = RVenn::overlap(clusters_list)
-    } else if (feature_method == "outersect") {
-        clusters = c()
-        for (i in seq_along(clusters_list)) {
-            unique_items = RVenn::discern(clusters_list, i)
-            clusters = c(clusters, unique_items)
-        }
-    } else {
-        stop("Invalid method for feature merging")
-    }
+    clusters = lapply(clust_list, function(x) setNames(as.character(x), names(x)))
+    clusters = factor(purrr::list_c(clusters))
     return(clusters)
 }
 
@@ -396,7 +369,7 @@ merge_features <- function(dom_list, feature_method) {
         features = RVenn::overlap(features_list)
     } else if (feature_method == "outersect") {
         features = c()
-        for (i in seq_along(features_list)) {
+        for (i in seq_along(feat_list)) {
             unique_items = RVenn::discern(features_list, i)
             features = c(features, unique_items)
         }
@@ -427,15 +400,11 @@ merge_link_complex <- function(link_list) {
     # For each complex, get the genes in the complex
     complex_merged = list()
     for (c in complexes) {
-        ind = unlist(lapply(complex_list, function(x) {
-            which(c %in% names(x))
-        }))
-        complex_sub = complex_list[names(ind)]
-        genes = unique(unlist(lapply(complex_sub, function(x) {
+        genes = unique(unlist(lapply(complex_list, function(x) {
             x[[c]]
-        # Handle those semicolons, too:
-        genes = remove_semicolons(genes)
         })))
+        # Handle those semicolons, too:
+        genes = vapply(genes, remove_semicolons, "character", USE.NAMES = FALSE)
         complex_merged[[c]] = genes
     }
     return(complex_merged)
@@ -457,15 +426,11 @@ merge_link_rl <- function(link_list) {
     # For each receptor, get the ligands
     rec_lig_merged = list()
     for (r in rec_lig) {
-        ind = unlist(lapply(rec_lig_list, function(x) {
-            which(r %in% names(x))
-        }))
-        rec_lig_sub = rec_lig_list[names(ind)]
-        ligands = unique(unlist(lapply(rec_lig_sub, function(x) {
+        ligands = unique(unlist(lapply(rec_lig_list, function(x) {
             x[[r]]
         })))
-        ligands = remove_semicolons(ligands)
-        rec_lig_merged[[remove_semicolons(r)]] = ligands
+        ligands = vapply(ligands, remove_semicolons, "character", USE.NAMES = FALSE)
+        rec_lig_merged[[r]] = ligands
     }
     return(rec_lig_merged)
 } 
@@ -493,8 +458,8 @@ merge_link_regulon <- function(link_list) {
         targets = unique(unlist(lapply(tf_targets_sub, function(x) {
             x[[tf]]
         })))
-        targets = remove_semicolons(targets)
-        tf_targets_merged[[remove_semicolons(tf)]] = targets
+        targets = vapply(targets, remove_semicolons, "character", USE.NAMES = FALSE)
+        tf_targets_merged[[tf]] = targets
     }
     return(tf_targets_merged)
 }
@@ -512,15 +477,11 @@ merge_link_tfr <- function(link_list) {
     tf_rec = unique(unlist(lapply(tf_rec_list, names)))
     tf_rec_merged = list()
     for (tf in tf_rec) {
-        ind = unlist(lapply(tf_rec_list, function(x) {
-            which(tf %in% names(x))
-        }))
-        tf_rec_sub = tf_rec_list[names(ind)]
-        recs = unique(unlist(lapply(tf_rec_sub, function(x) {
+        recs = unique(unlist(lapply(tf_rec_list, function(x) {
             x[[tf]]
         })))
-        recs = remove_semicolons(recs)
-        tf_rec_merged[[remove_semicolons(tf)]] = recs
+        recs = vapply(recs, remove_semicolons, "character", USE.NAMES = FALSE)
+        tf_rec_merged[[tf]] = recs
     }
     return(tf_rec_merged)
 }
@@ -538,15 +499,11 @@ merge_link_in_lig <- function(link_list) {
     cl_lig = unique(unlist(lapply(cl_lig_list, names)))
     cl_lig_merged = list()
     for (cl in cl_lig) {
-        ind = unlist(lapply(cl_lig_list, function(x) {
-            which(cl %in% names(x))
-        }))
-        cl_lig_sub = cl_lig_list[names(ind)]
-        ligs = unique(unlist(lapply(cl_lig_sub, function(x) {
+        ligs = unique(unlist(lapply(cl_lig_list, function(x) {
             x[[cl]]
         })))
-        ligs = remove_semicolons(ligs)
-        cl_lig_merged[[remove_semicolons(cl)]] = ligs
+        ligs = vapply(ligs, remove_semicolons, "character", USE.NAMES = FALSE)
+        cl_lig_merged[[cl]] = ligs
     }
     return(cl_lig_merged)
 }
@@ -578,7 +535,7 @@ merge_link_clust_tf <- function(link_list, feature_method) {
             cl_tf_merged[[cl]] = RVenn::overlap(set)
         } else if (feature_method == "outersect") {
             cl_tf_merged[[cl]] = c()
-            for (i in seq_along(set)) {
+            for (i in seq_along(cl_tf_list)) {
                 unique_items = RVenn::discern(set, i)
                 cl_tf_merged[[cl]] = c(cl_tf_merged[[cl]], unique_items)
             }
@@ -615,39 +572,43 @@ merge_link_clust_tf_rec <- function(link_list, feature_method) {
             tfs_vec = RVenn::unite(tfs)
         } else if (feature_method == "outersect") {
             tfs_vec = c()
-            for (i in seq_along(tfs)) {
+            for (i in seq_along(cl_tf_rec)) {
                 unique_items = RVenn::discern(tfs, i)
-                tfs_vec = c(tfs, unique_items)
+                tfs_vec = c(tfs_vec, unique_items)
             }
         } else {
             stop("Invalid method for feature merging")
         }
         # Then for each TF, select receptors based on feature_method
         cl_tf_rec_merged[[cl]] = list()
-        for (tf in tfs_vec) {
-            recs = lapply(cl_tf_rec_list, function(x) {
-                x[[cl]][[tf]]
-            })
-            if (length(!is.null(recs)) > 1) {
-                recs = RVenn::Venn(recs)
-                if (feature_method == "intersect") {
-                    recs_vec = RVenn::overlap(recs)
-                } else if (feature_method == "union") {
-                    recs_vec = RVenn::unite(recs)
-                } else if (feature_method == "outersect") {
-                    recs_vec = c()
-                    for (i in seq_along(recs)) {
-                        unique_items = RVenn::discern(recs, i)
-                        recs_vec = c(recs_vec, unique_items)
+        if (!identical(tfs_vec, character(0))) {
+            for (tf in tfs_vec) {
+                recs = lapply(cl_tf_rec_list, function(x) {
+                    x[[cl]][[tf]]
+                })
+                if (length(!is.null(recs)) > 1) {
+                    recs = RVenn::Venn(recs)
+                    if (feature_method == "intersect") {
+                        recs_vec = RVenn::overlap(recs)
+                    } else if (feature_method == "union") {
+                        recs_vec = RVenn::unite(recs)
+                    } else if (feature_method == "outersect") {
+                        recs_vec = c()
+                        for (i in seq_along(recs)) {
+                            unique_items = RVenn::discern(recs, i)
+                            recs_vec = c(recs_vec, unique_items)
+                        }
+                    } else {
+                        stop("Invalid method for feature merging")
                     }
                 } else {
-                    stop("Invalid method for feature merging")
+                    recs_vec = unlist(recs[which(!is.null(recs))])
                 }
-            } else {
-                recs_vec = unlist(recs[which(!is.null(recs))])
+                names(recs_vec) = NULL
+                cl_tf_rec_merged[[cl]][[tf]] = recs_vec
             }
-            names(recs_vec) = NULL
-            cl_tf_rec_merged[[cl]][[tf]] = recs_vec
+        } else {
+            cl_tf_rec_merged[[cl]] = list()
         }
     }
     return(cl_tf_rec_merged)
@@ -677,7 +638,7 @@ merge_link_clust_rec <- function(link_list, feature_method) {
             cl_rec_merged[[cl]] = RVenn::overlap(set)
         } else if (feature_method == "outersect") {
             cl_rec_merged[[cl]] = c()
-            for (i in seq_along(set)) {
+            for (i in seq_along(cl_rec_list)) {
                 unique_items = RVenn::discern(set, i)
                 cl_rec_merged[[cl]] = c(cl_rec_merged[[cl]], unique_items)
             }
@@ -734,28 +695,24 @@ merge_cl_signaling <- function(dom_list, value_method) {
         # Build matrix for cluster based on value_method
         for (r in rownames(cl_signaling_merged[[cl]])) {
             for (c in colnames(cl_signaling_merged[[cl]])) {
-                ind = unlist(lapply(mat, function(x) {
-                    which(r %in% rownames(x) & c %in% colnames(x))
-                }))
-                sub = mat[names(ind)]
                 if (value_method == "max") {
-                    cl_signaling_merged[[cl]][r, c] = max(unlist(lapply(sub, function(x) {
-                        x[r, c]
-                    })))
+                    cl_signaling_merged[[cl]][r, c] = max(unlist(lapply(mat, function(x) {
+                        rc_val_mat(x, r, c)
+                    })), na.rm = TRUE)
                 } else if (value_method == "min") {
-                    cl_signaling_merged[[cl]][r, c] = min(unlist(lapply(sub, function(x) {
-                        x[r, c]
-                    })))
+                    cl_signaling_merged[[cl]][r, c] = min(unlist(lapply(mat, function(x) {
+                        rc_val_mat(x, r, c)
+                    })), na.rm = TRUE)
                 } else if (value_method == "mean") {
-                    cl_signaling_merged[[cl]][r, c] = mean(unlist(lapply(sub, function(x) {
-                        x[r, c]
-                    })))
+                    cl_signaling_merged[[cl]][r, c] = mean(unlist(lapply(mat, function(x) {
+                        rc_val_mat(x, r, c)
+                    })), na.rm = TRUE)
                 } else if (value_method == "range") {
-                    cl_signaling_merged[[cl]][r, c] = max(unlist(lapply(sub, function(x) {
-                        x[r, c]
-                    }))) - min(unlist(lapply(sub, function(x) {
-                        x[r, c]
-                    })))
+                    cl_signaling_merged[[cl]][r, c] = max(unlist(lapply(mat, function(x) {
+                        rc_val_mat(x, r, c)
+                    })), na.rm = TRUE) - min(unlist(lapply(sub, function(x) {
+                        rc_val_mat(x, r, c)
+                    })), na.rm = TRUE)
                 } else {
                     stop("Invalid method for value merging")
                 }
@@ -781,27 +738,23 @@ merge_signaling <- function(dom_list, value_method) {
     colnames(signaling_merged) = col
     for (r in rownames(signaling_merged)) {
         for (c in colnames(signaling_merged)) {
-            ind = unlist(lapply(signaling_list, function(x) {
-                which(r %in% rownames(x) & c %in% colnames(x))
-            }))
-            sub = signaling_list[names(ind)]
             if (value_method == "max") {
-                signaling_merged[r, c] = max(unlist(lapply(sub, function(x) {
-                    x[r, c]
+                signaling_merged[r, c] = max(unlist(lapply(signaling_list, function(x) {
+                    rc_val_mat(x, r, c)
                 })))
             } else if (value_method == "min") {
-                signaling_merged[r, c] = min(unlist(lapply(sub, function(x) {
-                    x[r, c]
+                signaling_merged[r, c] = min(unlist(lapply(signaling_list, function(x) {
+                    rc_val_mat(x, r, c)
                 })))
             } else if (value_method == "mean") {
-                signaling_merged[r, c] = mean(unlist(lapply(sub, function(x) {
-                    x[r, c]
+                signaling_merged[r, c] = mean(unlist(lapply(signaling_list, function(x) {
+                    rc_val_mat(x, r, c)
                 })))
             } else if (value_method == "range") {
-                signaling_merged[r, c] = max(unlist(lapply(sub, function(x) {
-                    x[r, c]
+                signaling_merged[r, c] = max(unlist(lapply(signaling_list, function(x) {
+                    rc_val_mat(x, r, c)
                 }))) - min(unlist(lapply(sub, function(x) {
-                    x[r, c]
+                    rc_val_mat(x, r, c)
                 })))
             } else {
                 stop("Invalid method for value merging")
@@ -832,13 +785,22 @@ merge_dom <- function(dom_list, feature_method = c("intersect", "union", "outers
         slot(dom, "db_info") = merge_db_info(dom_list)
         slot(dom, "z_scores") = merge_zs(dom_list, feature_method)
         slot(dom, "counts") = merge_counts(dom_list, feature_method)
-        slot(dom, "clusters") = merge_clusters(dom_list, feature_method)
+        slot(dom, "clusters") = merge_clusters(dom_list)
         slot(dom, "features") = merge_features(dom_list, feature_method)
-        slot(dom, "cor") = merge_cor(dom_list, feature_method)
+        slot(dom, "cor") = merge_cor(dom_list, value_method)
         slot(dom, "linkages") = merge_linkages(dom_list, feature_method)
         slot(dom, "clust_de") = merge_de(dom_list, value_method)
         slot(dom, "misc") = merge_misc(dom_list, value_method)
-        slot(dom, "cl_signaling_matrices") = merge_cl_signaling(dom_list, feature_method, value_method)
+        slot(dom, "cl_signaling_matrices") = merge_cl_signaling(dom_list, value_method)
         slot(dom, "signaling") = merge_signaling(dom_list, value_method)
         return(dom)
     }
+
+# Quick function for pulling matrix values only if present:
+rc_val_mat <- function(matrix, r_index, c_index) {
+    if (r_index %in% rownames(matrix) & c_index %in% colnames(matrix)) {
+        return(matrix[r_index, c_index])
+    } else {
+        return(0)
+    }
+}

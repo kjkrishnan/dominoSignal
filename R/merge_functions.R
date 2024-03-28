@@ -796,7 +796,16 @@ merge_dom <- function(dom_list, feature_method = c("intersect", "union", "outers
         return(dom)
     }
 
-# Quick function for pulling matrix values only if present:
+#' Get value from matrix based on row and column index if present
+#' 
+#' Check whether row and column index exists in matrix; if so, pull value, and if
+#' not, return 0 rather than throwing an error
+#' 
+#' @param matrix A matrix to pull values from
+#' @param r_index A row index to pull value from
+#' @param c_index A column index to pull value from
+#' @return Value from matrix if present, 0 otherwise
+#' @keywords internal
 rc_val_mat <- function(matrix, r_index, c_index) {
     if (r_index %in% rownames(matrix) & c_index %in% colnames(matrix)) {
         return(matrix[r_index, c_index])

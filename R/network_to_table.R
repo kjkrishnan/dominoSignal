@@ -25,7 +25,7 @@ resolve_names <- function(dom, genes) {
         } else {
             remove_semicolons(int$L.name)
         }
-    }, USE.NAMES = FALSE)
+    })
     return(genes_resolved)
 }
 
@@ -84,7 +84,7 @@ avg_exp_for_complexes <- function(exp_mat, complexes_list) {
 
 #' Get ligands with resolved names
 #' @param dom A built domino object
-#' @return A vector of ligands with resolved names
+#' @return A list of ligands and complexes with resolved names
 #' @keywords internal
 get_resolved_ligands <- function(dom) {
     all_lig <- unlist(dom@linkages$rec_lig)

@@ -24,20 +24,20 @@ rename_clusters <- function(dom, clust_conv) {
     stop("There are no clusters in this domino object")
   }
   if (dom@misc$create) {
-    dom@clusters <- revalue(dom@clusters, clust_conv)
+    dom@clusters <- plyr::revalue(dom@clusters, clust_conv)
     colnames(dom@clust_de) <- clust_conv
     names(colnames(dom@clust_de)) <- c()
     colnames(dom@misc$cl_rec_percent) <- clust_conv
   }
   if (dom@misc$build) {
-    names(dom@linkages$clust_tf) <- clust_conv
-    names(dom@linkages$clust_rec) <- clust_conv
-    names(dom@linkages$clust_incoming_lig) <- clust_conv
-    names(dom@linkages$clust_tf_rec) <- clust_conv
+    names(dom@linkages$clust_tf) <- plyr::revalue(names(dom@linkages$clust_tf), clust_conv)
+    names(dom@linkages$clust_rec) <- plyr::revalue(names(dom@linkages$clust_rec), clust_conv)
+    names(dom@linkages$clust_incoming_lig) <- plyr::revalue(names(dom@linkages$clust_incoming_lig), clust_conv)
+    names(dom@linkages$clust_tf_rec) <- plyr::revalue(names(dom@linkages$clust_tf_rec), clust_conv)
     colnames(dom@signaling) <- paste0("L_", clust_conv)
     rownames(dom@signaling) <- paste0("R_", clust_conv)
-    names(dom@cl_signaling_matrices) <- clust_conv
-    for (cl in clust_conv) {
+    names(dom@cl_signaling_matrices) <- plyr::revalue(names(dom@cl_signaling_matrices), clust_conv)
+    for (cl in names(dom@cl_signaling_matrices)) {
       colnames(dom@cl_signaling_matrices[[cl]]) <- paste0("L_", clust_conv)
     }
   }

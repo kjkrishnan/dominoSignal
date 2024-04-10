@@ -17,13 +17,16 @@ resolve_names <- function(dom, genes) {
     genes_resolved <- sapply(genes, function(l) {
         # For each ligand, find the first row in the rl_map
         int <- rl_map[rl_map$L.name == l, ][1, ]
-        # If the ligand name and ligand gene aren't the same,
+        # If the ligand is in the rl_map and ligand name and ligand gene aren't the same,
         # and there is no comma in the ligand gene, use the gene
-        if ((int$L.name != int$L.gene) & !grepl("\\,", int$L.gene)) {
+        if ((l %in% rl_map$L.name) & (int$L.name != int$L.gene) & !grepl("\\,", int$L.gene)) {
             remove_semicolons(int$L.gene)
             # Otherwise, use the ligand name
-        } else {
+        } else if (l %in% rl_map$L.name) {
             remove_semicolons(int$L.name)
+            # If the ligand is not in the rl_map, just return ligand without semicolons
+        } else {
+            remove_semicolons(l)
         }
     })
     return(genes_resolved)

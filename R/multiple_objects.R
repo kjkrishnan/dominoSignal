@@ -13,7 +13,7 @@ require(tidyverse)
 #' @param clusters A vector of cluster names to restrict the search to
 #' @return A list with two elements: lig_names and complex_names
 #' @keywords internal
-get_incoming_ligands <- function(dom, clusters = NULL) {
+get_incoming_ligands <- function(dom) {
     all_lig <- unlist(dom@linkages$clust_incoming_lig)
     all_lig <- unique(all_lig)
     all_lig <- all_lig[!all_lig == ""]

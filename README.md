@@ -1,4 +1,4 @@
-![R build status](https://github.com/FertigLab/dominoSignal/workflows/r-build-check/badge.svg?branch=master)
+![R build status](https://github.com/FertigLab/dominoSignal/workflows/r-build-check.yml/badge.svg?branch=master)
 
 ## Introducing dominoSignal: Improved Inference of Cell Signaling from Single Cell RNA Sequencing Data <a href="https://fertiglab.github.io/dominoSignal/"><img src="man/figures/logo.svg" align="right" height="138" alt="dominoSignal logo" /></a>
 
@@ -6,7 +6,7 @@ dominoSignal is an updated version of the original [domino](https://github.com/E
 
 ### Installation
 
-dominoSignal is undergoing active development where aspects of how data is used, analyzed, and interpreted is subject to change as new features and fixes are implemented. **v0.99.1** of dominoSignal serves as the first stable development version during these active updates for reproducible usage.
+dominoSignal is undergoing active development where aspects of how data is used, analyzed, and interpreted is subject to change as new features and fixes are implemented. This version of dominoSignal serves as the stable development version during these active updates for reproducible usage.
 
 dominoSignal is the continuation of Domino software hosted on the [Elisseeff-Lab GitHub](https://github.com/Elisseeff-Lab/domino). The most up to date stable version is on the [FertigLab GitHub](https://github.com/FertigLab). This version of dominoSignal can be installed using the remotes package.
 

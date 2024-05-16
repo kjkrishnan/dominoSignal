@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">dominoSignal</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,8 +37,9 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
-    <a class="external-link dropdown-item" href="https://github.com/FertigLab/dominoSignal/releases/tag/v0.2.1-alpha">dominoSignal v0.2.1</a>
+    <a class="external-link dropdown-item" href="https://github.com/FertigLab/dominoSignal/releases/tag/v0.99.2-alpha">dominoSignal v0.99.2</a>
     <a class="external-link dropdown-item" href="https://github.com/FertigLab/dominoSignal/releases/tag/v0.2.2-alpha">dominoSignal v0.2.2</a>
+    <a class="external-link dropdown-item" href="https://github.com/FertigLab/dominoSignal/releases/tag/v0.2.1-alpha">dominoSignal v0.2.1</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../news/index.html">Changelog</a>
   </div>
@@ -96,13 +97,136 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">meta_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="st">"ID"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"P1"</span>, <span class="st">"P2"</span><span class="op">)</span>, <span class="st">"group"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dom_ls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"P1"</span> <span class="op">=</span> <span class="va">dom1</span>, <span class="st">"P2"</span> <span class="op">=</span> <span class="va">dom2</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dom_ls</span> <span class="op">&lt;-</span> <span class="fu">dominoSignal</span><span class="fu">:::</span><span class="va">dom_ls_tiny</span></span></span>
+<span class="r-in"><span><span class="va">meta_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="st">"ID"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"dom1"</span>, <span class="st">"dom2"</span><span class="op">)</span>, <span class="st">"group"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">summarize_linkages</span><span class="op">(</span></span></span>
 <span class="r-in"><span> domino_results <span class="op">=</span> <span class="va">dom_ls</span>, subject_meta <span class="op">=</span> <span class="va">meta_df</span>, </span></span>
-<span class="r-in"><span> subject_names <span class="op">=</span> <span class="va">meta_df</span><span class="op">$</span><span class="va">ID</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span> subject_names <span class="op">=</span> <span class="va">meta_df</span><span class="op">$</span><span class="va">ID</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> An object of class "linkage_summary"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "subject_names":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] dom1 dom2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: dom1 dom2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "subject_meta":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ID group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 dom1     A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 dom2     B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Slot "subject_linkages":</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1$B_cell</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1$B_cell$tfs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1$B_cell$rec</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1$B_cell$incoming_lig</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1$B_cell$tfs_rec</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1$B_cell$rec_lig</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1$CD14_monocyte</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1$CD14_monocyte$tfs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ZNF324" "CREM"   "FOSL1" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1$CD14_monocyte$rec</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "CXCR3"        "IL7_receptor" "TGFBR3"       "NRG1"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1$CD14_monocyte$incoming_lig</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "CCL20"                 "IL7"                   "TGFB3"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4] "integrin_a6b4_complex"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1$CD14_monocyte$tfs_rec</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ZNF324 &lt;- CXCR3"      "CREM &lt;- IL7_receptor" "CREM &lt;- TGFBR3"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4] "FOSL1 &lt;- NRG1"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1$CD14_monocyte$rec_lig</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "CXCR3 &lt;- CCL20"                "IL7_receptor &lt;- IL7"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3] "TGFBR3 &lt;- TGFB3"               "NRG1 &lt;- integrin_a6b4_complex"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1$CD8_T_cell</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1$CD8_T_cell$tfs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "FLI1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1$CD8_T_cell$rec</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "CXCR3"        "IL7_receptor"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1$CD8_T_cell$incoming_lig</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "CCL20" "IL7"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1$CD8_T_cell$tfs_rec</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "FLI1 &lt;- CXCR3"        "FLI1 &lt;- IL7_receptor"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom1$CD8_T_cell$rec_lig</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "CXCR3 &lt;- CCL20"      "IL7_receptor &lt;- IL7"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2$B_cell</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2$B_cell$tfs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2$B_cell$rec</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2$B_cell$incoming_lig</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2$B_cell$tfs_rec</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2$B_cell$rec_lig</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2$CD14_monocyte</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2$CD14_monocyte$tfs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "FLI1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2$CD14_monocyte$rec</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "CXCR3"        "IL7_receptor"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2$CD14_monocyte$incoming_lig</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "CCL20" "IL7"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2$CD14_monocyte$tfs_rec</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "FLI1 &lt;- CXCR3"        "FLI1 &lt;- IL7_receptor"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2$CD14_monocyte$rec_lig</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "CXCR3 &lt;- CCL20"      "IL7_receptor &lt;- IL7"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2$CD8_T_cell</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2$CD8_T_cell$tfs</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ZNF324" "CREM"   "FOSL1" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2$CD8_T_cell$rec</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "CXCR3"        "IL7_receptor" "TGFBR3"       "NRG1"        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2$CD8_T_cell$incoming_lig</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "CCL20"                 "IL7"                   "TGFB3"                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4] "integrin_a6b4_complex"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2$CD8_T_cell$tfs_rec</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ZNF324 &lt;- CXCR3"      "CREM &lt;- IL7_receptor" "CREM &lt;- TGFBR3"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4] "FOSL1 &lt;- NRG1"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $dom2$CD8_T_cell$rec_lig</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "CXCR3 &lt;- CCL20"                "IL7_receptor &lt;- IL7"          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3] "TGFBR3 &lt;- TGFB3"               "NRG1 &lt;- integrin_a6b4_complex"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

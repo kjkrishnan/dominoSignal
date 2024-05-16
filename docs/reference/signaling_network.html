@@ -14,7 +14,7 @@ colored based on the color scheme of the ligand expressing cluster."><meta prope
     
     <a class="navbar-brand me-2" href="../index.html">dominoSignal</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,8 +41,9 @@ colored based on the color scheme of the ligand expressing cluster."><meta prope
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-news">News</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-news">
     <h6 class="dropdown-header" data-toc-skip>Releases</h6>
-    <a class="external-link dropdown-item" href="https://github.com/FertigLab/dominoSignal/releases/tag/v0.2.1-alpha">dominoSignal v0.2.1</a>
+    <a class="external-link dropdown-item" href="https://github.com/FertigLab/dominoSignal/releases/tag/v0.99.2-alpha">dominoSignal v0.99.2</a>
     <a class="external-link dropdown-item" href="https://github.com/FertigLab/dominoSignal/releases/tag/v0.2.2-alpha">dominoSignal v0.2.2</a>
+    <a class="external-link dropdown-item" href="https://github.com/FertigLab/dominoSignal/releases/tag/v0.2.1-alpha">dominoSignal v0.2.1</a>
     <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="../news/index.html">Changelog</a>
   </div>
@@ -168,15 +169,13 @@ colored based on the color scheme of the ligand expressing cluster.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#basic usage</span></span></span>
 <span class="r-in"><span><span class="fu">signaling_network</span><span class="op">(</span><span class="fu">dominoSignal</span><span class="fu">:::</span><span class="va">pbmc_dom_built_tiny</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>No signaling found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-plt img"><img src="signaling_network-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># scaling, thresholds, layouts, selecting clusters</span></span></span>
 <span class="r-in"><span><span class="fu">signaling_network</span><span class="op">(</span></span></span>
 <span class="r-in"><span> <span class="fu">dominoSignal</span><span class="fu">:::</span><span class="va">pbmc_dom_built_tiny</span>, showOutgoingSignalingClusts <span class="op">=</span> <span class="st">"CD14_monocyte"</span>, </span></span>
 <span class="r-in"><span> scale <span class="op">=</span> <span class="st">"none"</span>, norm <span class="op">=</span> <span class="st">"none"</span>, layout <span class="op">=</span> <span class="st">"fr"</span>, scale_by <span class="op">=</span> <span class="st">"none"</span>, </span></span>
 <span class="r-in"><span> vert_scale <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>No signaling found</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-plt img"><img src="signaling_network-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

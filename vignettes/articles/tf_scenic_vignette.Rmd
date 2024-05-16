@@ -80,7 +80,7 @@ pbmc_loom <- loomR::create(
 pbmc_loom$close_all()
 ```
 
-We will use the `pbmc3k\_counts.loom` file in this tutorial.
+We will use the `pbmc3k_counts.loom` file in this tutorial.
 
 ## Running SCENIC
 

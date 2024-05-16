@@ -20,8 +20,8 @@ git config --global user.email 'action@github.com'
 git fetch
 # Checkout target branch                         
 git checkout $TARGET_BRANCH
-# copy files from the branch the action is being run upon
-SRC_BRANCH=$(git symbolic-ref --short HEAD)
+# copy files from master branch, as that is the version we want for bioconductor
+SRC_BRANCH=master
 git checkout $SRC_BRANCH -- $FILES
 # Commit to the repository (ignore if no changes)
 git add -A

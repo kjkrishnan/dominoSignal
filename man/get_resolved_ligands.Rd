@@ -10,7 +10,7 @@ get_resolved_ligands(dom)
 \item{dom}{A built domino object}
 }
 \value{
-A vector of ligands with resolved names
+A list of ligands and complexes with resolved names
 }
 \description{
 Get ligands with resolved names

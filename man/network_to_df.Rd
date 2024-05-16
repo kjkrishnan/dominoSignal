@@ -2,7 +2,7 @@
 % Please edit documentation in R/network_to_table.R
 \name{network_to_df}
 \alias{network_to_df}
-\title{Turn domino objecct signaling information into a data frame}
+\title{Turn domino object signaling information into a data frame}
 \usage{
 network_to_df(
   dom,

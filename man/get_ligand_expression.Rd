@@ -15,7 +15,7 @@ get_ligand_expression(dom, send_clusters, lig_genes, complexes, exp_type)
 
 \item{complexes}{A list of complexes with names as complex and values as component genes}
 
-\item{matrix}{A character vector of length 1, either "counts" or "z_scores"}
+\item{exp_type}{A character vector of length 1, either "counts" or "z_scores"}
 }
 \value{
 A matrix of ligand expression for outgoing clusters

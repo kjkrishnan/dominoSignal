@@ -131,11 +131,13 @@ test_that(
         c("TF1", "TF2", "TF3")
       )
     ))
-    feature_de_tiny <- data.frame(
+    feature_de_ls <- list(
       TF1 = c(0.05, 1, 1),
       TF2 = c(1, 0.05, 1),
       TF3 = c(0.5, 0.5, 0.5)
     )
+    feature_de_tiny <- as.data.frame(do.call(rbind, feature_de_ls))
+    colnames(feature_de_tiny) <- c("A", "B", "C")
     
     # REC1 is directly correlated with TF1
     # REC2 is differentially expressed in cluster B but not dependent on TF2

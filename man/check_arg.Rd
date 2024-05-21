@@ -35,6 +35,10 @@ check_arg(
 
 \item{need_names}{Logical for whether names are required}
 }
+\value{
+logical
+}
 \description{
 Accepts an object and rules for checking, stops if rules not met.
 }
+\keyword{internal}
